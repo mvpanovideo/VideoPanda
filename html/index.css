@@ -1,10 +1,10 @@
 body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
-    padding: 20px;
+    /* padding: 20px; */
     background-color: #f9f9f9;
     color: #333;
-    padding-bottom: 500px; /* Adjust to desired space */
+    /* padding-bottom: 500px; Adjust to desired space */
 }
 nav {
     position: sticky;
@@ -150,12 +150,12 @@ section {
 .affil-row {
     margin-top: 18px;
 }
-.container {
+/* .container {
     margin-left: auto;
     margin-right: auto;
     padding-left: 16px;
     padding-right: 16px;
-}
+} */
 .flex-row {
     display: flex;
     flex-flow: row wrap;
@@ -173,7 +173,8 @@ section {
     width: 80%;
 }
 .text-box {
-    width: 80%;
+    text-align: justify;
+    /* width: 80%; */
 }
 
 /* for vr video */
@@ -222,7 +223,7 @@ section {
     cursor: pointer;
 }
 
-#toast {
+/* #toast {
     position: fixed;
     bottom: 20vh;
     bottom: 20dvh;
@@ -239,20 +240,20 @@ section {
     line-height: 2rem;
     box-shadow: 0 0 10px 0 #000000a0;
     white-space: nowrap;
-}
+} */
 
 @media (max-width: 550px) {
-    #toast {
+    /* #toast {
         font-size: 16px;
         line-height: 20px;
         height: 40px;
         bottom: 15vh;
         bottom: 15dvh;
-    }
+    } */
 }
 
-#toast.showToast {
-    animation: showToast 1s linear;
+/* #toast.showToast { */
+    /* animation: showToast 1s linear;
 }
 
 #toast.hideToast {
@@ -271,9 +272,9 @@ section {
     top: 0;
     bottom: 0;
     margin: auto;
-}
+} */
 
-@keyframes showToast {
+/* @keyframes showToast {
     0% {
         opacity: 0;
     }
@@ -291,4 +292,6 @@ section {
     100% {
         opacity: 0;
     }
-}
+} */
+
+

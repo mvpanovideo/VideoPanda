@@ -1,1028 +1,1764 @@
+<!DOCTYPE html>
+<html lang="en">
 
-    <!DOCTYPE html>
-    <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VideoPanda: Panoramic Video Diffusion with Multi-view Attention </title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <link href="./html/index.css" rel="stylesheet">
     <script src="./html/js/index.js" defer></script>
     <script src="./html/js/aframe.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+        crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 </head>
-    <body>
 
-    <nav>
-        <a href="#Abstract">Abstract</a>
-        <a href="#long-pano">Autoregressive Generation</a>
+<body>
 
-        <a href="#ours-vs-360dvd">Ours vs. 360DVD</a>
-        <a href="#text-cond">Text-Condition Generation</a>
-        <a href="#video-cond">Video-Condition Generation</a>
-        <a href="#ours-vs-mvdiff">Ours vs. MVDiffusion</a>
-        <a href="#swap-prompt">Video-conditional with Different Prompts</a>
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="#Abstract">Abstract</a>
+            </li>
+        </ul>
+
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="#long-pano">Autoregressive Generation</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="#ours-vs-360dvd">Ours vs. 360DVD</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="#text-cond">Text-Condition Generation</a>
+            </li>
+        </ul>
+
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="#video-cond">Video-Condition Generation</a>
+            </li>
+        </ul>
+
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="#ours-vs-mvdiff">Ours vs. MVDiffusion</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="#swap-prompt">Video-conditional with Different Prompts</a>
+            </li>
+        </ul>
     </nav>
-    
-<div class="container">
-    <div class="paper-title">
-    <center>
-    <h3><font color="#5364cc">VideoPanda</font>: <font color="#5364cc">Pan</font>oramic Video <font color="#5364cc">D</font>iffusion with Multi-view <font color="#5364cc">A</font>ttention</h3>
-    </div>
 
-    <div id="authors">
-    <center>
-        ICLR 2025 submission
-    </div>
-</div>
-    <section id="abstract"/>
-    <center>
-    <h1>Abstract</h1>
-    <div class="text-box">
-        
-        
-        <div class="flex-row">
+
+    <div class="container" style="padding-top: 5rem;">
+        <div>
+            <div class="paper-title">
+                <center>
+                    <h3>
+                        <font color="#5364cc">VideoPanda</font>: <font color="#5364cc">Pan</font>oramic Video <font
+                            color="#5364cc">D</font>iffusion with Multi-view <font color="#5364cc">A</font>ttention
+                    </h3>
+            </div>
+
+            <div id="authors">
+                <center>
+                    ICLR 2025 submission
+            </div>
+        </div>
+        <section id="Abstract">
+            <h1>Abstract</h1>
+            <div class="text-box">
+                <div class="flex-row">
+                    <p>
+                        Recent breakthroughs in generative models have sparked unprecedented interest in a wide range of
+                        downstream applications, particularly in the realm of augmented and virtual reality, where
+                        immersive
+                        content creation is paramount. While significant progress has been made in generating high
+                        quality
+                        images and videos, creating coherent panoramic videos still remains an open challenge. In this
+                        work,
+                        we
+                        introduce VideoPanda, a novel approach for synthesizing 360-degree videos conditioned on text or
+                        video
+                        data. VideoPanda leverages multi-view attention layers to augment a video diffusion model,
+                        enabling
+                        it
+                        to be multi-view aware and capable of generating immersive panoramic content. Our model is
+                        jointly
+                        trained using three conditions: text-only, single-view video and single-view video with
+                        multi-view
+                        images. This unified training allows for video synthesis from text and video as well as long
+                        video
+                        generation using the same model trained once. Extensive evaluations on the WEB360 dataset,
+                        demonstrate
+                        that VideoPanda generates more realistic and coherent 360-degree panoramas across all input
+                        conditions
+                        compared to existing methods.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <div aria-live="polite" aria-atomic="true" style="position: fixed; bottom: 1rem; right: 1rem; z-index: 9999;">
+            <div class="alert alert-success mb-0" style="border-radius: 10rem;">
+                Click any video to open VR preview
+            </div>
+        </div>
+
+        <section id="long-pano">
+            <h1>Autoregressive Generation</h1>
+            <div class="scroll-container">
+                <div class="row">
+                    <div class="video-column">
+                        <div class="cond-video-block">
+                            <h2>Cond Video</h2>
+                            <div class="lazyvideo"><video controls autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/ar61_fix/apano_0007_A FPV drone shot through a castle on a cliff/cond.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                        <div class="pano-video-block">
+                            <h2>Pano Video</h2>
+                            <div class="video"><video playsinline autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/ar61_fix/apano_0007_A FPV drone shot through a castle on a cliff/pano.mp4"
+                                        data-vrsrc="html/processed_results/ar61_fix/apano_0007_A FPV drone shot through a castle on a cliff/pano.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                    </div>
+                    <div class="text-prompt">
+                        Prompt: A FPV drone shot through a castle on a cliff
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="video-column">
+                        <div class="cond-video-block">
+                            <h2>Cond Video</h2>
+                            <div class="lazyvideo"><video controls autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/ar61_fix/apano_0016_A slow cinematic push in on an ostrich standing in a 1980s kitchen/cond.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                        <div class="pano-video-block">
+                            <h2>Pano Video</h2>
+                            <div class="video"><video playsinline autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/ar61_fix/apano_0016_A slow cinematic push in on an ostrich standing in a 1980s kitchen/pano.mp4"
+                                        data-vrsrc="html/processed_results/ar61_fix/apano_0016_A slow cinematic push in on an ostrich standing in a 1980s kitchen/pano.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                    </div>
+                    <div class="text-prompt">
+                        Prompt: A slow cinematic push in on an ostrich standing in a 1980s kitchen
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="video-column">
+                        <div class="cond-video-block">
+                            <h2>Cond Video</h2>
+                            <div class="lazyvideo"><video controls autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/ar61_fix/apano_0020_A wide symmetrical shot of a painting in a museum. The camera zooms in close to the painting/cond.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                        <div class="pano-video-block">
+                            <h2>Pano Video</h2>
+                            <div class="video"><video playsinline autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/ar61_fix/apano_0020_A wide symmetrical shot of a painting in a museum. The camera zooms in close to the painting/pano.mp4"
+                                        data-vrsrc="html/processed_results/ar61_fix/apano_0020_A wide symmetrical shot of a painting in a museum. The camera zooms in close to the painting/pano.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                    </div>
+                    <div class="text-prompt">
+                        Prompt: A wide symmetrical shot of a painting in a museum. The camera zooms in close to the
+                        painting
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="video-column">
+                        <div class="cond-video-block">
+                            <h2>Cond Video</h2>
+                            <div class="lazyvideo"><video controls autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/ar61_fix/apano_0013_Internal window of a train moving at hyper-speed in an old European city/cond.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                        <div class="pano-video-block">
+                            <h2>Pano Video</h2>
+                            <div class="video"><video playsinline autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/ar61_fix/apano_0013_Internal window of a train moving at hyper-speed in an old European city/pano.mp4"
+                                        data-vrsrc="html/processed_results/ar61_fix/apano_0013_Internal window of a train moving at hyper-speed in an old European city/pano.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                    </div>
+                    <div class="text-prompt">
+                        Prompt: Internal window of a train moving at hyper-speed in an old European city
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="video-column">
+                        <div class="cond-video-block">
+                            <h2>Cond Video</h2>
+                            <div class="lazyvideo"><video controls autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/ar61_fix/apano_0032_FPV flying through a colorful coral lined streets of an underwater suburban neighborhood/cond.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                        <div class="pano-video-block">
+                            <h2>Pano Video</h2>
+                            <div class="video"><video playsinline autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/ar61_fix/apano_0032_FPV flying through a colorful coral lined streets of an underwater suburban neighborhood/pano.mp4"
+                                        data-vrsrc="html/processed_results/ar61_fix/apano_0032_FPV flying through a colorful coral lined streets of an underwater suburban neighborhood/pano.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                    </div>
+                    <div class="text-prompt">
+                        Prompt: FPV flying through a colorful coral lined streets of an underwater suburban neighborhood
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="video-column">
+                        <div class="cond-video-block">
+                            <h2>Cond Video</h2>
+                            <div class="lazyvideo"><video controls autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/ar61_fix/apano_0010_A man made of rocks walking in the forest, full-body shot/cond.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                        <div class="pano-video-block">
+                            <h2>Pano Video</h2>
+                            <div class="video"><video playsinline autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/ar61_fix/apano_0010_A man made of rocks walking in the forest, full-body shot/pano.mp4"
+                                        data-vrsrc="html/processed_results/ar61_fix/apano_0010_A man made of rocks walking in the forest, full-body shot/pano.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                    </div>
+                    <div class="text-prompt">
+                        Prompt: A man made of rocks walking in the forest, full-body shot
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="video-column">
+                        <div class="cond-video-block">
+                            <h2>Cond Video</h2>
+                            <div class="lazyvideo"><video controls autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/ar61_fix/apano_0028_Close up shot of a living flame wisp darting through a bustling fantasy market at night/cond.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                        <div class="pano-video-block">
+                            <h2>Pano Video</h2>
+                            <div class="video"><video playsinline autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/ar61_fix/apano_0028_Close up shot of a living flame wisp darting through a bustling fantasy market at night/pano.mp4"
+                                        data-vrsrc="html/processed_results/ar61_fix/apano_0028_Close up shot of a living flame wisp darting through a bustling fantasy market at night/pano.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                    </div>
+                    <div class="text-prompt">
+                        Prompt: Close up shot of a living flame wisp darting through a bustling fantasy market at night
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="video-column">
+                        <div class="cond-video-block">
+                            <h2>Cond Video</h2>
+                            <div class="lazyvideo"><video controls autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/ar61_fix/apano_0022_A FPV shot zooming through a tunnel into a vibrant underwater space/cond.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                        <div class="pano-video-block">
+                            <h2>Pano Video</h2>
+                            <div class="video"><video playsinline autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/ar61_fix/apano_0022_A FPV shot zooming through a tunnel into a vibrant underwater space/pano.mp4"
+                                        data-vrsrc="html/processed_results/ar61_fix/apano_0022_A FPV shot zooming through a tunnel into a vibrant underwater space/pano.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                    </div>
+                    <div class="text-prompt">
+                        Prompt: A FPV shot zooming through a tunnel into a vibrant underwater space
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="video-column">
+                        <div class="cond-video-block">
+                            <h2>Cond Video</h2>
+                            <div class="lazyvideo"><video controls autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/ar61_fix/apano_0025_A Japanese animated film of a young woman standing on a ship and looking back at camera/cond.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                        <div class="pano-video-block">
+                            <h2>Pano Video</h2>
+                            <div class="video"><video playsinline autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/ar61_fix/apano_0025_A Japanese animated film of a young woman standing on a ship and looking back at camera/pano.mp4"
+                                        data-vrsrc="html/processed_results/ar61_fix/apano_0025_A Japanese animated film of a young woman standing on a ship and looking back at camera/pano.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                    </div>
+                    <div class="text-prompt">
+                        Prompt: A Japanese animated film of a young woman standing on a ship and looking back at camera
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="video-column">
+                        <div class="cond-video-block">
+                            <h2>Cond Video</h2>
+                            <div class="lazyvideo"><video controls autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/ar61_fix/apano_0030_Dragon-toucan walking through the Serengeti/cond.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                        <div class="pano-video-block">
+                            <h2>Pano Video</h2>
+                            <div class="video"><video playsinline autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/ar61_fix/apano_0030_Dragon-toucan walking through the Serengeti/pano.mp4"
+                                        data-vrsrc="html/processed_results/ar61_fix/apano_0030_Dragon-toucan walking through the Serengeti/pano.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                    </div>
+                    <div class="text-prompt">
+                        Prompt: Dragon-toucan walking through the Serengeti
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="video-column">
+                        <div class="cond-video-block">
+                            <h2>Cond Video</h2>
+                            <div class="lazyvideo"><video controls autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/ar61_fix/apano_0014_A pink pig running fast toward the camera in an alley in Tokyo/cond.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                        <div class="pano-video-block">
+                            <h2>Pano Video</h2>
+                            <div class="video"><video playsinline autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/ar61_fix/apano_0014_A pink pig running fast toward the camera in an alley in Tokyo/pano.mp4"
+                                        data-vrsrc="html/processed_results/ar61_fix/apano_0014_A pink pig running fast toward the camera in an alley in Tokyo/pano.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                    </div>
+                    <div class="text-prompt">
+                        Prompt: A pink pig running fast toward the camera in an alley in Tokyo
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="video-column">
+                        <div class="cond-video-block">
+                            <h2>Cond Video</h2>
+                            <div class="lazyvideo"><video controls autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/ar61_fix/apano_0051_merged_id063_start076_end080_sim16.60/cond.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                        <div class="pano-video-block">
+                            <h2>Pano Video</h2>
+                            <div class="video"><video playsinline autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/ar61_fix/apano_0051_merged_id063_start076_end080_sim16.60/pano.mp4"
+                                        data-vrsrc="html/processed_results/ar61_fix/apano_0051_merged_id063_start076_end080_sim16.60/pano.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                    </div>
+                    <div class="text-prompt">
+                        Prompt: A view of a quaint town nestled between rolling hills, with wooden houses, a winding
+                        river, and a clear blue sky overhead.
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="video-column">
+                        <div class="cond-video-block">
+                            <h2>Cond Video</h2>
+                            <div class="lazyvideo"><video controls autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/ar61_fix/apano_0041_merged_id060_start074_end076_sim19.51/cond.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                        <div class="pano-video-block">
+                            <h2>Pano Video</h2>
+                            <div class="video"><video playsinline autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/ar61_fix/apano_0041_merged_id060_start074_end076_sim19.51/pano.mp4"
+                                        data-vrsrc="html/processed_results/ar61_fix/apano_0041_merged_id060_start074_end076_sim19.51/pano.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                    </div>
+                    <div class="text-prompt">
+                        Prompt: A view of a glass with a red beverage and ice cubes, placed on a wooden table, with a
+                        potted plant in the background.
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="video-column">
+                        <div class="cond-video-block">
+                            <h2>Cond Video</h2>
+                            <div class="lazyvideo"><video controls autoplay loop muted>
+                                    <source data-src="html/processed_results/ar61_fix/apano_0006_gunung bromo/cond.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                        <div class="pano-video-block">
+                            <h2>Pano Video</h2>
+                            <div class="video"><video playsinline autoplay loop muted>
+                                    <source data-src="html/processed_results/ar61_fix/apano_0006_gunung bromo/pano.mp4"
+                                        data-vrsrc="html/processed_results/ar61_fix/apano_0006_gunung bromo/pano.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                    </div>
+                    <div class="text-prompt">
+                        Prompt: gunung bromo
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="video-column">
+                        <div class="cond-video-block">
+                            <h2>Cond Video</h2>
+                            <div class="lazyvideo"><video controls autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/ar61_fix/apano_0062_merged_id030_start027_end037_sim11.76/cond.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                        <div class="pano-video-block">
+                            <h2>Pano Video</h2>
+                            <div class="video"><video playsinline autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/ar61_fix/apano_0062_merged_id030_start027_end037_sim11.76/pano.mp4"
+                                        data-vrsrc="html/processed_results/ar61_fix/apano_0062_merged_id030_start027_end037_sim11.76/pano.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                    </div>
+                    <div class="text-prompt">
+                        Prompt: A view of a snow-covered road surrounded by tall pine trees, with a red sports car
+                        driving on it.
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="video-column">
+                        <div class="cond-video-block">
+                            <h2>Cond Video</h2>
+                            <div class="lazyvideo"><video controls autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/ar61_fix/apano_0026_An empty warehouse dynamically transformed by flora that explode from the ground/cond.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                        <div class="pano-video-block">
+                            <h2>Pano Video</h2>
+                            <div class="video"><video playsinline autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/ar61_fix/apano_0026_An empty warehouse dynamically transformed by flora that explode from the ground/pano.mp4"
+                                        data-vrsrc="html/processed_results/ar61_fix/apano_0026_An empty warehouse dynamically transformed by flora that explode from the ground/pano.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                    </div>
+                    <div class="text-prompt">
+                        Prompt: An empty warehouse dynamically transformed by flora that explode from the ground
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="video-column">
+                        <div class="cond-video-block">
+                            <h2>Cond Video</h2>
+                            <div class="lazyvideo"><video controls autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/ar61_fix/apano_0003_Make the scene dramatic with thunders all over, and fires blowing, depicting a terrific sound thundering across the sky and the earth on the battlefield. The scene is dark, intense, and colorful/cond.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                        <div class="pano-video-block">
+                            <h2>Pano Video</h2>
+                            <div class="video"><video playsinline autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/ar61_fix/apano_0003_Make the scene dramatic with thunders all over, and fires blowing, depicting a terrific sound thundering across the sky and the earth on the battlefield. The scene is dark, intense, and colorful/pano.mp4"
+                                        data-vrsrc="html/processed_results/ar61_fix/apano_0003_Make the scene dramatic with thunders all over, and fires blowing, depicting a terrific sound thundering across the sky and the earth on the battlefield. The scene is dark, intense, and colorful/pano.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                    </div>
+                    <div class="text-prompt">
+                        Prompt: Make the scene dramatic with thunders all over, and fires blowing, depicting a terrific
+                        sound thundering across the sky and the earth on the battlefield. The scene is dark, intense,
+                        and colorful
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="ours-vs-360dvd">
+            <h1>Ours vs. 360DVD</h1>
+            <div class="scroll-container">
+                <div class="row">
+                    <div class="video-column">
+                        <div class="pano-video-block-half">
+                            <h2>Ours</h2>
+                            <div class="video"><video playsinline autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/comp_to_360dvd/Church_of_the_Intercession_on_the_River_Nerl_in_spring_flood._Aerial_360_video_in_16K_t008_sample_pano/pano_fix.mp4"
+                                        data-vrsrc="html/processed_results/comp_to_360dvd/Church_of_the_Intercession_on_the_River_Nerl_in_spring_flood._Aerial_360_video_in_16K_t008_sample_pano/pano_fix.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                        <div class="pano-video-block-half">
+                            <h2>360DVD</h2>
+                            <div class="video"><video playsinline autoplay loop muted>
+                                    <source
+                                        data-src="html/baseline/360dvd/1-A view of the Church of the Intercession on the Nerl, with its iconic green onion-shaped dome, situated near a flooded river, surrounded by snow-covered landscapes and distant settlements..mp4"
+                                        data-vrsrc="html/baseline/360dvd/1-A view of the Church of the Intercession on the Nerl, with its iconic green onion-shaped dome, situated near a flooded river, surrounded by snow-covered landscapes and distant settlements..mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+
+                    </div>
+                    <div class="text-prompt">
+                        Prompt: A view of the Church of the Intercession on the Nerl, with its iconic green onion-shaped
+                        dome, situated near a flooded river, surrounded by snow-covered landscapes and distant
+                        settlements.
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="video-column">
+                        <div class="pano-video-block-half">
+                            <h2>Ours</h2>
+                            <div class="video"><video playsinline autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/comp_to_360dvd/360__Antarctica___Unexpected_Snow___National_Geographic_t005_sample_pano/pano_fix.mp4"
+                                        data-vrsrc="html/processed_results/comp_to_360dvd/360__Antarctica___Unexpected_Snow___National_Geographic_t005_sample_pano/pano_fix.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                        <div class="pano-video-block-half">
+                            <h2>360DVD</h2>
+                            <div class="video"><video playsinline autoplay loop muted>
+                                    <source
+                                        data-src="html/baseline/360dvd/0-A view of snow-covered mountains, a partially frozen body of water, and floating ice chunks..mp4"
+                                        data-vrsrc="html/baseline/360dvd/0-A view of snow-covered mountains, a partially frozen body of water, and floating ice chunks..mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+
+                    </div>
+                    <div class="text-prompt">
+                        Prompt: A view of snow-covered mountains, a partially frozen body of water, and floating ice
+                        chunks.
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="video-column">
+                        <div class="pano-video-block-half">
+                            <h2>Ours</h2>
+                            <div class="video"><video playsinline autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/comp_to_360dvd/360__Baby_Pandas___Nat_Geo_WILD_t007_sample_pano/pano_fix.mp4"
+                                        data-vrsrc="html/processed_results/comp_to_360dvd/360__Baby_Pandas___Nat_Geo_WILD_t007_sample_pano/pano_fix.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                        <div class="pano-video-block-half">
+                            <h2>360DVD</h2>
+                            <div class="video"><video playsinline autoplay loop muted>
+                                    <source
+                                        data-src="html/baseline/360dvd/2-A view of a tree trunk surrounded by fallen leaves, with branches extending outwards and a blurred background suggesting a garden or park setting..mp4"
+                                        data-vrsrc="html/baseline/360dvd/2-A view of a tree trunk surrounded by fallen leaves, with branches extending outwards and a blurred background suggesting a garden or park setting..mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+
+                    </div>
+                    <div class="text-prompt">
+                        Prompt: A view of a tree trunk surrounded by fallen leaves, with branches extending outwards and
+                        a blurred background suggesting a garden or park setting.
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="video-cond">
+            <h1>Video-Condition Generation</h1>
+            <div class="scroll-container">
+                <div class="row">
+                    <div class="video-column">
+                        <div class="cond-video-block">
+                            <h2>Cond Video</h2>
+                            <div class="lazyvideo"><video controls autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/video_cond/apano_0142_Kostroma._Golden_Ring_of_Russia._360_video_teaser_in_11K_t002_sample_pano/cond.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                        <div class="pano-video-block">
+                            <h2>Pano Video</h2>
+                            <div class="video"><video playsinline autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/video_cond/apano_0142_Kostroma._Golden_Ring_of_Russia._360_video_teaser_in_11K_t002_sample_pano/pano_fix.mp4"
+                                        data-vrsrc="html/processed_results/video_cond/apano_0142_Kostroma._Golden_Ring_of_Russia._360_video_teaser_in_11K_t002_sample_pano/pano_fix.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                    </div>
+                    <div class="text-prompt">
+                        Prompt: A view of the historic Ipatiev Monastery, with its white walls, green domes, and golden
+                        crosses, surrounded by a protective wall and overlooking a serene river.
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="video-column">
+                        <div class="cond-video-block">
+                            <h2>Cond Video</h2>
+                            <div class="lazyvideo"><video controls autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/video_cond/apano_0101_Underwater_Wonders__Red_Sea__Egypt._8K_360_video_t040_sample_pano/cond.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                        <div class="pano-video-block">
+                            <h2>Pano Video</h2>
+                            <div class="video"><video playsinline autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/video_cond/apano_0101_Underwater_Wonders__Red_Sea__Egypt._8K_360_video_t040_sample_pano/pano_fix.mp4"
+                                        data-vrsrc="html/processed_results/video_cond/apano_0101_Underwater_Wonders__Red_Sea__Egypt._8K_360_video_t040_sample_pano/pano_fix.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                    </div>
+                    <div class="text-prompt">
+                        Prompt: A view of the vibrant coral reefs under the clear blue waters of the ocean.
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="video-column">
+                        <div class="cond-video-block">
+                            <h2>Cond Video</h2>
+                            <div class="lazyvideo"><video controls autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/video_cond/apano_0005_360__Antarctica___Unexpected_Snow___National_Geographic_t006_sample_pano/cond.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                        <div class="pano-video-block">
+                            <h2>Pano Video</h2>
+                            <div class="video"><video playsinline autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/video_cond/apano_0005_360__Antarctica___Unexpected_Snow___National_Geographic_t006_sample_pano/pano_fix.mp4"
+                                        data-vrsrc="html/processed_results/video_cond/apano_0005_360__Antarctica___Unexpected_Snow___National_Geographic_t006_sample_pano/pano_fix.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                    </div>
+                    <div class="text-prompt">
+                        Prompt: A view of the rocky shore, two inflatable boats, and the vast expanse of the sea under a
+                        cloudy sky.
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="video-column">
+                        <div class="cond-video-block">
+                            <h2>Cond Video</h2>
+                            <div class="lazyvideo"><video controls autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/video_cond/apano_0016_360__Baby_Pandas___Nat_Geo_WILD_t009_sample_pano/cond.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                        <div class="pano-video-block">
+                            <h2>Pano Video</h2>
+                            <div class="video"><video playsinline autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/video_cond/apano_0016_360__Baby_Pandas___Nat_Geo_WILD_t009_sample_pano/pano_fix.mp4"
+                                        data-vrsrc="html/processed_results/video_cond/apano_0016_360__Baby_Pandas___Nat_Geo_WILD_t009_sample_pano/pano_fix.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                    </div>
+                    <div class="text-prompt">
+                        Prompt: A view of a panda's face peeking from behind a tree branch amidst lush green foliage.
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="video-column">
+                        <div class="cond-video-block">
+                            <h2>Cond Video</h2>
+                            <div class="lazyvideo"><video controls autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/video_cond/apano_0152_Lofoten_Islands__Norway._Teaser._8K_360_video._t004_sample_pano/cond.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                        <div class="pano-video-block">
+                            <h2>Pano Video</h2>
+                            <div class="video"><video playsinline autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/video_cond/apano_0152_Lofoten_Islands__Norway._Teaser._8K_360_video._t004_sample_pano/pano_fix.mp4"
+                                        data-vrsrc="html/processed_results/video_cond/apano_0152_Lofoten_Islands__Norway._Teaser._8K_360_video._t004_sample_pano/pano_fix.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                    </div>
+                    <div class="text-prompt">
+                        Prompt: A view of a snow-covered cityscape with modern buildings, a harbor filled with boats,
+                        and majestic snow-capped mountains in the background during sunset.
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="video-column">
+                        <div class="cond-video-block">
+                            <h2>Cond Video</h2>
+                            <div class="lazyvideo"><video controls autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/video_cond/apano_0109_Elton_Lake__the_biggest_mineral_lake_in_Europe._8K_aerial_360_video._t001_sample_pano/cond.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                        <div class="pano-video-block">
+                            <h2>Pano Video</h2>
+                            <div class="video"><video playsinline autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/video_cond/apano_0109_Elton_Lake__the_biggest_mineral_lake_in_Europe._8K_aerial_360_video._t001_sample_pano/pano_fix.mp4"
+                                        data-vrsrc="html/processed_results/video_cond/apano_0109_Elton_Lake__the_biggest_mineral_lake_in_Europe._8K_aerial_360_video._t001_sample_pano/pano_fix.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                    </div>
+                    <div class="text-prompt">
+                        Prompt: A view of a long, straight road stretching through a vast, open field with sparse
+                        vegetation.
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="video-column">
+                        <div class="cond-video-block">
+                            <h2>Cond Video</h2>
+                            <div class="lazyvideo"><video controls autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/video_cond/apano_0138_Hacha_Falls__Canaima_Lagoon__Venezuela._360_video_in_5K._t001_sample_pano/cond.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                        <div class="pano-video-block">
+                            <h2>Pano Video</h2>
+                            <div class="video"><video playsinline autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/video_cond/apano_0138_Hacha_Falls__Canaima_Lagoon__Venezuela._360_video_in_5K._t001_sample_pano/pano_fix.mp4"
+                                        data-vrsrc="html/processed_results/video_cond/apano_0138_Hacha_Falls__Canaima_Lagoon__Venezuela._360_video_in_5K._t001_sample_pano/pano_fix.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                    </div>
+                    <div class="text-prompt">
+                        Prompt: A view of the turbulent river, surrounded by lush greenery and tall palm trees, with
+                        distant mountains and a cloudy sky overhead.
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="video-column">
+                        <div class="cond-video-block">
+                            <h2>Cond Video</h2>
+                            <div class="lazyvideo"><video controls autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/video_cond/apano_0145_Kostroma._Golden_Ring_of_Russia._360_video_teaser_in_11K_t005_sample_pano/cond.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                        <div class="pano-video-block">
+                            <h2>Pano Video</h2>
+                            <div class="video"><video playsinline autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/video_cond/apano_0145_Kostroma._Golden_Ring_of_Russia._360_video_teaser_in_11K_t005_sample_pano/pano_fix.mp4"
+                                        data-vrsrc="html/processed_results/video_cond/apano_0145_Kostroma._Golden_Ring_of_Russia._360_video_teaser_in_11K_t005_sample_pano/pano_fix.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                    </div>
+                    <div class="text-prompt">
+                        Prompt: A view of a serene lake surrounded by autumn trees, with a town in the distance and a
+                        church spire on the left.
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="video-column">
+                        <div class="cond-video-block">
+                            <h2>Cond Video</h2>
+                            <div class="lazyvideo"><video controls autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/video_cond/apano_0140_Hacha_Falls__Canaima_Lagoon__Venezuela._360_video_in_5K._t003_sample_pano/cond.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                        <div class="pano-video-block">
+                            <h2>Pano Video</h2>
+                            <div class="video"><video playsinline autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/video_cond/apano_0140_Hacha_Falls__Canaima_Lagoon__Venezuela._360_video_in_5K._t003_sample_pano/pano_fix.mp4"
+                                        data-vrsrc="html/processed_results/video_cond/apano_0140_Hacha_Falls__Canaima_Lagoon__Venezuela._360_video_in_5K._t003_sample_pano/pano_fix.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                    </div>
+                    <div class="text-prompt">
+                        Prompt: A view of the turbulent river, surrounded by lush greenery, with mountains in the
+                        distance under a partly cloudy sky.
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="video-column">
+                        <div class="cond-video-block">
+                            <h2>Cond Video</h2>
+                            <div class="lazyvideo"><video controls autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/video_cond/apano_0097_Church_of_the_Intercession_on_the_River_Nerl_in_spring_flood._Aerial_360_video_in_16K_t002_sample_pano/cond.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                        <div class="pano-video-block">
+                            <h2>Pano Video</h2>
+                            <div class="video"><video playsinline autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/video_cond/apano_0097_Church_of_the_Intercession_on_the_River_Nerl_in_spring_flood._Aerial_360_video_in_16K_t002_sample_pano/pano_fix.mp4"
+                                        data-vrsrc="html/processed_results/video_cond/apano_0097_Church_of_the_Intercession_on_the_River_Nerl_in_spring_flood._Aerial_360_video_in_16K_t002_sample_pano/pano_fix.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                    </div>
+                    <div class="text-prompt">
+                        Prompt: A view of a serene landscape with a church at its center, surrounded by water, with
+                        trees reflecting on the calm water surface and a setting sun in the background.
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="video-column">
+                        <div class="cond-video-block">
+                            <h2>Cond Video</h2>
+                            <div class="lazyvideo"><video controls autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/video_cond/apano_0117_Elton_Lake__the_biggest_mineral_lake_in_Europe._8K_aerial_360_video._t002_sample_pano/cond.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                        <div class="pano-video-block">
+                            <h2>Pano Video</h2>
+                            <div class="video"><video playsinline autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/video_cond/apano_0117_Elton_Lake__the_biggest_mineral_lake_in_Europe._8K_aerial_360_video._t002_sample_pano/pano_fix.mp4"
+                                        data-vrsrc="html/processed_results/video_cond/apano_0117_Elton_Lake__the_biggest_mineral_lake_in_Europe._8K_aerial_360_video._t002_sample_pano/pano_fix.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                    </div>
+                    <div class="text-prompt">
+                        Prompt: A view of the vast salt flats, the serene sky with scattered clouds, and the mirror-like
+                        reflection on the salt flat's surface.
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="video-column">
+                        <div class="cond-video-block">
+                            <h2>Cond Video</h2>
+                            <div class="lazyvideo"><video controls autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/video_cond/apano_0061_360__Dive_Through_an_Oil_Rig_Ecosystem___National_Geographic_t004_sample_pano/cond.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                        <div class="pano-video-block">
+                            <h2>Pano Video</h2>
+                            <div class="video"><video playsinline autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/video_cond/apano_0061_360__Dive_Through_an_Oil_Rig_Ecosystem___National_Geographic_t004_sample_pano/pano_fix.mp4"
+                                        data-vrsrc="html/processed_results/video_cond/apano_0061_360__Dive_Through_an_Oil_Rig_Ecosystem___National_Geographic_t004_sample_pano/pano_fix.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                    </div>
+                    <div class="text-prompt">
+                        Prompt: A view of an offshore oil rig, set against a serene backdrop of calm waters and a
+                        radiant sunrise or sunset.
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="video-column">
+                        <div class="cond-video-block">
+                            <h2>Cond Video</h2>
+                            <div class="lazyvideo"><video controls autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/video_cond/apano_0013_360__Baby_Pandas___Nat_Geo_WILD_t006_sample_pano/cond.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                        <div class="pano-video-block">
+                            <h2>Pano Video</h2>
+                            <div class="video"><video playsinline autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/video_cond/apano_0013_360__Baby_Pandas___Nat_Geo_WILD_t006_sample_pano/pano_fix.mp4"
+                                        data-vrsrc="html/processed_results/video_cond/apano_0013_360__Baby_Pandas___Nat_Geo_WILD_t006_sample_pano/pano_fix.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                    </div>
+                    <div class="text-prompt">
+                        Prompt: A view of a panda lying on the grass, another panda standing nearby, a wooden platform
+                        with a panda resting on it, and tall trees surrounding the area.
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="video-column">
+                        <div class="cond-video-block">
+                            <h2>Cond Video</h2>
+                            <div class="lazyvideo"><video controls autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/video_cond/apano_0127_Elton_Lake__the_biggest_mineral_lake_in_Europe._8K_aerial_360_video._t011_sample_pano/cond.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                        <div class="pano-video-block">
+                            <h2>Pano Video</h2>
+                            <div class="video"><video playsinline autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/video_cond/apano_0127_Elton_Lake__the_biggest_mineral_lake_in_Europe._8K_aerial_360_video._t011_sample_pano/pano_fix.mp4"
+                                        data-vrsrc="html/processed_results/video_cond/apano_0127_Elton_Lake__the_biggest_mineral_lake_in_Europe._8K_aerial_360_video._t011_sample_pano/pano_fix.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                    </div>
+                    <div class="text-prompt">
+                        Prompt: A view of a vast grassy field with two horses grazing. The horse on the left is white,
+                        while the one on the right is brown.
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="video-column">
+                        <div class="cond-video-block">
+                            <h2>Cond Video</h2>
+                            <div class="lazyvideo"><video controls autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/video_cond/apano_0161_Swayambhunath__the_Monkey_Temple__Kathmandu__Nepal._16K_360_video._t001_sample_pano/cond.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                        <div class="pano-video-block">
+                            <h2>Pano Video</h2>
+                            <div class="video"><video playsinline autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/video_cond/apano_0161_Swayambhunath__the_Monkey_Temple__Kathmandu__Nepal._16K_360_video._t001_sample_pano/pano_fix.mp4"
+                                        data-vrsrc="html/processed_results/video_cond/apano_0161_Swayambhunath__the_Monkey_Temple__Kathmandu__Nepal._16K_360_video._t001_sample_pano/pano_fix.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                    </div>
+                    <div class="text-prompt">
+                        Prompt: A view of the majestic stupa adorned with prayer flags, surrounded by smaller structures
+                        and bustling with devotees.
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="video-column">
+                        <div class="cond-video-block">
+                            <h2>Cond Video</h2>
+                            <div class="lazyvideo"><video controls autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/video_cond/apano_0139_Hacha_Falls__Canaima_Lagoon__Venezuela._360_video_in_5K._t002_sample_pano/cond.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                        <div class="pano-video-block">
+                            <h2>Pano Video</h2>
+                            <div class="video"><video playsinline autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/video_cond/apano_0139_Hacha_Falls__Canaima_Lagoon__Venezuela._360_video_in_5K._t002_sample_pano/pano_fix.mp4"
+                                        data-vrsrc="html/processed_results/video_cond/apano_0139_Hacha_Falls__Canaima_Lagoon__Venezuela._360_video_in_5K._t002_sample_pano/pano_fix.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                    </div>
+                    <div class="text-prompt">
+                        Prompt: A view of the turbulent river, the cascading waterfalls, the lush green hills, and the
+                        vast sky with scattered clouds.
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="video-column">
+                        <div class="cond-video-block">
+                            <h2>Cond Video</h2>
+                            <div class="lazyvideo"><video controls autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/video_cond/apano_0126_Elton_Lake__the_biggest_mineral_lake_in_Europe._8K_aerial_360_video._t010_sample_pano/cond.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                        <div class="pano-video-block">
+                            <h2>Pano Video</h2>
+                            <div class="video"><video playsinline autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/video_cond/apano_0126_Elton_Lake__the_biggest_mineral_lake_in_Europe._8K_aerial_360_video._t010_sample_pano/pano_fix.mp4"
+                                        data-vrsrc="html/processed_results/video_cond/apano_0126_Elton_Lake__the_biggest_mineral_lake_in_Europe._8K_aerial_360_video._t010_sample_pano/pano_fix.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                    </div>
+                    <div class="text-prompt">
+                        Prompt: A view of several horses grazing in a vast field under a cloudy sky.
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="video-column">
+                        <div class="cond-video-block">
+                            <h2>Cond Video</h2>
+                            <div class="lazyvideo"><video controls autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/video_cond/apano_0023_360__Antarctica___Journey_Through_The_Ice___National_Geographic_t004_sample_pano/cond.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                        <div class="pano-video-block">
+                            <h2>Pano Video</h2>
+                            <div class="video"><video playsinline autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/video_cond/apano_0023_360__Antarctica___Journey_Through_The_Ice___National_Geographic_t004_sample_pano/pano_fix.mp4"
+                                        data-vrsrc="html/processed_results/video_cond/apano_0023_360__Antarctica___Journey_Through_The_Ice___National_Geographic_t004_sample_pano/pano_fix.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                    </div>
+                    <div class="text-prompt">
+                        Prompt: A view of a vast icy expanse with broken ice floes, a ship's bow on the right, and a
+                        horizon with a hint of land and a cloudy sky.
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="video-column">
+                        <div class="cond-video-block">
+                            <h2>Cond Video</h2>
+                            <div class="lazyvideo"><video controls autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/video_cond/apano_0067_360__Antarctica___Journey_Through_The_Ice___National_Geographic_t008_sample_pano/cond.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                        <div class="pano-video-block">
+                            <h2>Pano Video</h2>
+                            <div class="video"><video playsinline autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/video_cond/apano_0067_360__Antarctica___Journey_Through_The_Ice___National_Geographic_t008_sample_pano/pano_fix.mp4"
+                                        data-vrsrc="html/processed_results/video_cond/apano_0067_360__Antarctica___Journey_Through_The_Ice___National_Geographic_t008_sample_pano/pano_fix.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                    </div>
+                    <div class="text-prompt">
+                        Prompt: A view of icy landscapes, floating icebergs, a group of penguins on an ice sheet,
+                        snow-covered hills, and a vast expanse of water under a partly cloudy sky.
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="video-column">
+                        <div class="cond-video-block">
+                            <h2>Cond Video</h2>
+                            <div class="lazyvideo"><video controls autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/video_cond/apano_0078_360__Antarctica___Unexpected_Snow___National_Geographic_t001_sample_pano/cond.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                        <div class="pano-video-block">
+                            <h2>Pano Video</h2>
+                            <div class="video"><video playsinline autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/video_cond/apano_0078_360__Antarctica___Unexpected_Snow___National_Geographic_t001_sample_pano/pano_fix.mp4"
+                                        data-vrsrc="html/processed_results/video_cond/apano_0078_360__Antarctica___Unexpected_Snow___National_Geographic_t001_sample_pano/pano_fix.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                    </div>
+                    <div class="text-prompt">
+                        Prompt: A view of icy mountains, a body of water with floating ice, and a foggy atmosphere.
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="video-column">
+                        <div class="cond-video-block">
+                            <h2>Cond Video</h2>
+                            <div class="lazyvideo"><video controls autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/video_cond/apano_0096_Church_of_the_Intercession_on_the_River_Nerl_in_spring_flood._Aerial_360_video_in_16K_t001_sample_pano/cond.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                        <div class="pano-video-block">
+                            <h2>Pano Video</h2>
+                            <div class="video"><video playsinline autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/video_cond/apano_0096_Church_of_the_Intercession_on_the_River_Nerl_in_spring_flood._Aerial_360_video_in_16K_t001_sample_pano/pano_fix.mp4"
+                                        data-vrsrc="html/processed_results/video_cond/apano_0096_Church_of_the_Intercession_on_the_River_Nerl_in_spring_flood._Aerial_360_video_in_16K_t001_sample_pano/pano_fix.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                    </div>
+                    <div class="text-prompt">
+                        Prompt: A view of a serene landscape during sunset, with a church or temple situated on an
+                        island amidst a flooded area, surrounded by snow-covered fields.
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="video-column">
+                        <div class="cond-video-block">
+                            <h2>Cond Video</h2>
+                            <div class="lazyvideo"><video controls autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/video_cond/apano_0159_Northern_Lights__Manpupuner_Rock_Formations._8K_360_video_t001_sample_pano/cond.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                        <div class="pano-video-block">
+                            <h2>Pano Video</h2>
+                            <div class="video"><video playsinline autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/video_cond/apano_0159_Northern_Lights__Manpupuner_Rock_Formations._8K_360_video_t001_sample_pano/pano_fix.mp4"
+                                        data-vrsrc="html/processed_results/video_cond/apano_0159_Northern_Lights__Manpupuner_Rock_Formations._8K_360_video_t001_sample_pano/pano_fix.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                    </div>
+                    <div class="text-prompt">
+                        Prompt: A view of towering snow-covered rock formations under a mesmerizing display of the
+                        Northern Lights.
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="video-column">
+                        <div class="cond-video-block">
+                            <h2>Cond Video</h2>
+                            <div class="lazyvideo"><video controls autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/video_cond/apano_0026_360__Baby_Pandas___Nat_Geo_WILD_t018_sample_pano/cond.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                        <div class="pano-video-block">
+                            <h2>Pano Video</h2>
+                            <div class="video"><video playsinline autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/video_cond/apano_0026_360__Baby_Pandas___Nat_Geo_WILD_t018_sample_pano/pano_fix.mp4"
+                                        data-vrsrc="html/processed_results/video_cond/apano_0026_360__Baby_Pandas___Nat_Geo_WILD_t018_sample_pano/pano_fix.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                    </div>
+                    <div class="text-prompt">
+                        Prompt: A view of a panda resting on a rock amidst a forest setting.
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="video-column">
+                        <div class="cond-video-block">
+                            <h2>Cond Video</h2>
+                            <div class="lazyvideo"><video controls autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/video_cond/apano_0006_360__Antarctica___Unexpected_Snow___National_Geographic_t007_sample_pano/cond.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                        <div class="pano-video-block">
+                            <h2>Pano Video</h2>
+                            <div class="video"><video playsinline autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/video_cond/apano_0006_360__Antarctica___Unexpected_Snow___National_Geographic_t007_sample_pano/pano_fix.mp4"
+                                        data-vrsrc="html/processed_results/video_cond/apano_0006_360__Antarctica___Unexpected_Snow___National_Geographic_t007_sample_pano/pano_fix.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                    </div>
+                    <div class="text-prompt">
+                        Prompt: A view of the rocky shore, two inflatable boats, and a person crouching near the water.
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="video-column">
+                        <div class="cond-video-block">
+                            <h2>Cond Video</h2>
+                            <div class="lazyvideo"><video controls autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/video_cond/apano_0092_360__Dive_Through_an_Oil_Rig_Ecosystem___National_Geographic_t032_sample_pano/cond.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                        <div class="pano-video-block">
+                            <h2>Pano Video</h2>
+                            <div class="video"><video playsinline autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/video_cond/apano_0092_360__Dive_Through_an_Oil_Rig_Ecosystem___National_Geographic_t032_sample_pano/pano_fix.mp4"
+                                        data-vrsrc="html/processed_results/video_cond/apano_0092_360__Dive_Through_an_Oil_Rig_Ecosystem___National_Geographic_t032_sample_pano/pano_fix.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                    </div>
+                    <div class="text-prompt">
+                        Prompt: A view of the ASANTE boat navigating near an offshore oil rig.
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="video-column">
+                        <div class="cond-video-block">
+                            <h2>Cond Video</h2>
+                            <div class="lazyvideo"><video controls autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/video_cond/apano_0171_Swayambhunath__the_Monkey_Temple__Kathmandu__Nepal._16K_360_video._t010_sample_pano/cond.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                        <div class="pano-video-block">
+                            <h2>Pano Video</h2>
+                            <div class="video"><video playsinline autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/video_cond/apano_0171_Swayambhunath__the_Monkey_Temple__Kathmandu__Nepal._16K_360_video._t010_sample_pano/pano_fix.mp4"
+                                        data-vrsrc="html/processed_results/video_cond/apano_0171_Swayambhunath__the_Monkey_Temple__Kathmandu__Nepal._16K_360_video._t010_sample_pano/pano_fix.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                    </div>
+                    <div class="text-prompt">
+                        Prompt: A view of the serene pathway adorned with colorful statues of Buddha, flanked by lush
+                        greenery and prayer flags, as visitors walk up the stairs.
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="video-column">
+                        <div class="cond-video-block">
+                            <h2>Cond Video</h2>
+                            <div class="lazyvideo"><video controls autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/video_cond/apano_0131_Elton_Lake__the_biggest_mineral_lake_in_Europe._8K_aerial_360_video._t015_sample_pano/cond.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                        <div class="pano-video-block">
+                            <h2>Pano Video</h2>
+                            <div class="video"><video playsinline autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/video_cond/apano_0131_Elton_Lake__the_biggest_mineral_lake_in_Europe._8K_aerial_360_video._t015_sample_pano/pano_fix.mp4"
+                                        data-vrsrc="html/processed_results/video_cond/apano_0131_Elton_Lake__the_biggest_mineral_lake_in_Europe._8K_aerial_360_video._t015_sample_pano/pano_fix.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                    </div>
+                    <div class="text-prompt">
+                        Prompt: A view of the vast expanse of the sea meeting the horizon, with intricate patterns of
+                        land and water formations in the foreground, and a serene sky painted with hues of pink and blue
+                        above.
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="text-cond">
+            <h1>Text-Condition Generation</h1>
+            <div class="scroll-container">
+                <div class="row">
+                    <div class="video-column">
+                        <div class="pano-video-block-single">
+                            <h2>Pano Video</h2>
+                            <div class="video"><video playsinline autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/text_cond/apano_0125_Church_of_the_Intercession_on_the_River_Nerl_in_spring_flood._Aerial_360_video_in_16K_t011_sample_pano/pano_fix.mp4"
+                                        data-vrsrc="html/processed_results/text_cond/apano_0125_Church_of_the_Intercession_on_the_River_Nerl_in_spring_flood._Aerial_360_video_in_16K_t011_sample_pano/pano_fix.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                    </div>
+                    <div class="text-prompt">
+                        Prompt: A view of a vast landscape with snow-covered patches amidst water bodies, surrounded by
+                        trees, and a distant cityscape on the horizon.
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="video-column">
+                        <div class="pano-video-block-single">
+                            <h2>Pano Video</h2>
+                            <div class="video"><video playsinline autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/text_cond/apano_0035_360__Antarctica___Journey_Through_The_Ice___National_Geographic_t003_sample_pano/pano_fix.mp4"
+                                        data-vrsrc="html/processed_results/text_cond/apano_0035_360__Antarctica___Journey_Through_The_Ice___National_Geographic_t003_sample_pano/pano_fix.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                    </div>
+                    <div class="text-prompt">
+                        Prompt: A view of a vast icy expanse under a cloudy sky. Overlayed text reads: 'ONLY A FEW
+                        SPECIALIZED SHIPS CAN CUT THEIR WAY THROUGH THE ICE.'
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="video-column">
+                        <div class="pano-video-block-single">
+                            <h2>Pano Video</h2>
+                            <div class="video"><video playsinline autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/text_cond/apano_0055_360__Bryce_Canyon___National_Geographic_t001_sample_pano/pano_fix.mp4"
+                                        data-vrsrc="html/processed_results/text_cond/apano_0055_360__Bryce_Canyon___National_Geographic_t001_sample_pano/pano_fix.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                    </div>
+                    <div class="text-prompt">
+                        Prompt: A view of Bryce Canyon National Park, showcasing its unique hoodoos and a rapidly
+                        changing landscape.
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="video-column">
+                        <div class="pano-video-block-single">
+                            <h2>Pano Video</h2>
+                            <div class="video"><video playsinline autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/text_cond/apano_0132_Underwater_Wonders__Red_Sea__Egypt._8K_360_video_t044_sample_pano/pano_fix.mp4"
+                                        data-vrsrc="html/processed_results/text_cond/apano_0132_Underwater_Wonders__Red_Sea__Egypt._8K_360_video_t044_sample_pano/pano_fix.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                    </div>
+                    <div class="text-prompt">
+                        Prompt: A view of the vibrant coral reefs bathed in sunlight, teeming with marine life, and the
+                        clear blue waters above.
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="video-column">
+                        <div class="pano-video-block-single">
+                            <h2>Pano Video</h2>
+                            <div class="video"><video playsinline autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/text_cond/apano_0185_Lofoten_Islands__Norway._Teaser._8K_360_video._t006_sample_pano/pano_fix.mp4"
+                                        data-vrsrc="html/processed_results/text_cond/apano_0185_Lofoten_Islands__Norway._Teaser._8K_360_video._t006_sample_pano/pano_fix.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                    </div>
+                    <div class="text-prompt">
+                        Prompt: A view of snow-covered mountains, a serene lake, a winding road, and a cluster of houses
+                        nestled amidst nature.
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="video-column">
+                        <div class="pano-video-block-single">
+                            <h2>Pano Video</h2>
+                            <div class="video"><video playsinline autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/text_cond/apano_0076_360__Climbing_Giants___National_Geographic_t013_sample_pano/pano_fix.mp4"
+                                        data-vrsrc="html/processed_results/text_cond/apano_0076_360__Climbing_Giants___National_Geographic_t013_sample_pano/pano_fix.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                    </div>
+                    <div class="text-prompt">
+                        Prompt: A view of the sun setting over a dense forest, with the sky painted in hues of orange,
+                        blue, and purple.
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="video-column">
+                        <div class="pano-video-block-single">
+                            <h2>Pano Video</h2>
+                            <div class="video"><video playsinline autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/text_cond/apano_0082_360__Dive_Through_an_Oil_Rig_Ecosystem___National_Geographic_t002_sample_pano/pano_fix.mp4"
+                                        data-vrsrc="html/processed_results/text_cond/apano_0082_360__Dive_Through_an_Oil_Rig_Ecosystem___National_Geographic_t002_sample_pano/pano_fix.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                    </div>
+                    <div class="text-prompt">
+                        Prompt: A view of the vast blue ocean under a clear sky. On the right side, there's a boat named
+                        'ASANTE' with two individuals onboard. One person is seated on the boat, and the other is in the
+                        cabin. There's a caption that reads, '8 MILES OFF SHORE SITS A LINE OF AGING OIL RIGS'.
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="video-column">
+                        <div class="pano-video-block-single">
+                            <h2>Pano Video</h2>
+                            <div class="video"><video playsinline autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/text_cond/apano_0187_Natural_Wonders_in_Bali._Relaxation_VR_video_in_16K_t002_sample_pano/pano_fix.mp4"
+                                        data-vrsrc="html/processed_results/text_cond/apano_0187_Natural_Wonders_in_Bali._Relaxation_VR_video_in_16K_t002_sample_pano/pano_fix.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                    </div>
+                    <div class="text-prompt">
+                        Prompt: A view of the multi-tiered pagoda surrounded by lush greenery, with a serene body of
+                        water in the foreground and a picturesque sunset in the background.
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="video-column">
+                        <div class="pano-video-block-single">
+                            <h2>Pano Video</h2>
+                            <div class="video"><video playsinline autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/text_cond/apano_0058_360__Bryce_Canyon___National_Geographic_t003_sample_pano/pano_fix.mp4"
+                                        data-vrsrc="html/processed_results/text_cond/apano_0058_360__Bryce_Canyon___National_Geographic_t003_sample_pano/pano_fix.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                    </div>
+                    <div class="text-prompt">
+                        Prompt: A view of the majestic rock formations, dense forests, and vast open land under a clear
+                        blue sky.
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="ours-vs-mvdiff">
+            <h1>Ours vs. MVDiffusion</h1>
+            <div class="scroll-container">
+                <div class="row">
+                    <div class="video-column">
+                        <div class="cond-video-block">
+                            <h2>Cond Frame</h2>
+                            <img class="lazy-loaded-image lazy" data-src="html/comp_to_mvdiffusion/pano/11/cond.png">
+                        </div>
+                        <div class="pano-video-block-half-cond">
+                            <h2>Ours</h2>
+                            <div class="video"><img class="lazy-loaded-image lazy"
+                                    data-src="html/comp_to_mvdiffusion/pano/11/pano_fix.png"
+                                    data-vrsrc="html/comp_to_mvdiffusion/pano/11/pano_fix.png"></div>
+                        </div>
+                        <div class="pano-video-block-half-cond">
+                            <h2>MVDiffusion</h2>
+                            <div class="video"><img class="lazy-loaded-image lazy"
+                                    data-src="html/comp_to_mvdiffusion/pano/11/pano_mvd.png"
+                                    data-vrsrc="html/comp_to_mvdiffusion/pano/11/pano_mvd.png"></div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="video-column">
+                        <div class="cond-video-block">
+                            <h2>Cond Frame</h2>
+                            <img class="lazy-loaded-image lazy" data-src="html/comp_to_mvdiffusion/pano/12/cond.png">
+                        </div>
+                        <div class="pano-video-block-half-cond">
+                            <h2>Ours</h2>
+                            <div class="video"><img class="lazy-loaded-image lazy"
+                                    data-src="html/comp_to_mvdiffusion/pano/12/pano_fix.png"
+                                    data-vrsrc="html/comp_to_mvdiffusion/pano/12/pano_fix.png"></div>
+                        </div>
+                        <div class="pano-video-block-half-cond">
+                            <h2>MVDiffusion</h2>
+                            <div class="video"><img class="lazy-loaded-image lazy"
+                                    data-src="html/comp_to_mvdiffusion/pano/12/pano_mvd.png"
+                                    data-vrsrc="html/comp_to_mvdiffusion/pano/12/pano_mvd.png"></div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="video-column">
+                        <div class="cond-video-block">
+                            <h2>Cond Frame</h2>
+                            <img class="lazy-loaded-image lazy" data-src="html/comp_to_mvdiffusion/pano/5/cond.png">
+                        </div>
+                        <div class="pano-video-block-half-cond">
+                            <h2>Ours</h2>
+                            <div class="video"><img class="lazy-loaded-image lazy"
+                                    data-src="html/comp_to_mvdiffusion/pano/5/pano_fix.png"
+                                    data-vrsrc="html/comp_to_mvdiffusion/pano/5/pano_fix.png"></div>
+                        </div>
+                        <div class="pano-video-block-half-cond">
+                            <h2>MVDiffusion</h2>
+                            <div class="video"><img class="lazy-loaded-image lazy"
+                                    data-src="html/comp_to_mvdiffusion/pano/5/pano_mvd.png"
+                                    data-vrsrc="html/comp_to_mvdiffusion/pano/5/pano_mvd.png"></div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="video-column">
+                        <div class="cond-video-block">
+                            <h2>Cond Frame</h2>
+                            <img class="lazy-loaded-image lazy" data-src="html/comp_to_mvdiffusion/pano/28/cond.png">
+                        </div>
+                        <div class="pano-video-block-half-cond">
+                            <h2>Ours</h2>
+                            <div class="video"><img class="lazy-loaded-image lazy"
+                                    data-src="html/comp_to_mvdiffusion/pano/28/pano_fix.png"
+                                    data-vrsrc="html/comp_to_mvdiffusion/pano/28/pano_fix.png"></div>
+                        </div>
+                        <div class="pano-video-block-half-cond">
+                            <h2>MVDiffusion</h2>
+                            <div class="video"><img class="lazy-loaded-image lazy"
+                                    data-src="html/comp_to_mvdiffusion/pano/28/pano_mvd.png"
+                                    data-vrsrc="html/comp_to_mvdiffusion/pano/28/pano_mvd.png"></div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="video-column">
+                        <div class="cond-video-block">
+                            <h2>Cond Frame</h2>
+                            <img class="lazy-loaded-image lazy" data-src="html/comp_to_mvdiffusion/pano/33/cond.png">
+                        </div>
+                        <div class="pano-video-block-half-cond">
+                            <h2>Ours</h2>
+                            <div class="video"><img class="lazy-loaded-image lazy"
+                                    data-src="html/comp_to_mvdiffusion/pano/33/pano_fix.png"
+                                    data-vrsrc="html/comp_to_mvdiffusion/pano/33/pano_fix.png"></div>
+                        </div>
+                        <div class="pano-video-block-half-cond">
+                            <h2>MVDiffusion</h2>
+                            <div class="video"><img class="lazy-loaded-image lazy"
+                                    data-src="html/comp_to_mvdiffusion/pano/33/pano_mvd.png"
+                                    data-vrsrc="html/comp_to_mvdiffusion/pano/33/pano_mvd.png"></div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="video-column">
+                        <div class="cond-video-block">
+                            <h2>Cond Frame</h2>
+                            <img class="lazy-loaded-image lazy" data-src="html/comp_to_mvdiffusion/pano/34/cond.png">
+                        </div>
+                        <div class="pano-video-block-half-cond">
+                            <h2>Ours</h2>
+                            <div class="video"><img class="lazy-loaded-image lazy"
+                                    data-src="html/comp_to_mvdiffusion/pano/34/pano_fix.png"
+                                    data-vrsrc="html/comp_to_mvdiffusion/pano/34/pano_fix.png"></div>
+                        </div>
+                        <div class="pano-video-block-half-cond">
+                            <h2>MVDiffusion</h2>
+                            <div class="video"><img class="lazy-loaded-image lazy"
+                                    data-src="html/comp_to_mvdiffusion/pano/34/pano_mvd.png"
+                                    data-vrsrc="html/comp_to_mvdiffusion/pano/34/pano_mvd.png"></div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="video-column">
+                        <div class="cond-video-block">
+                            <h2>Cond Frame</h2>
+                            <img class="lazy-loaded-image lazy" data-src="html/comp_to_mvdiffusion/pano/43/cond.png">
+                        </div>
+                        <div class="pano-video-block-half-cond">
+                            <h2>Ours</h2>
+                            <div class="video"><img class="lazy-loaded-image lazy"
+                                    data-src="html/comp_to_mvdiffusion/pano/43/pano_fix.png"
+                                    data-vrsrc="html/comp_to_mvdiffusion/pano/43/pano_fix.png"></div>
+                        </div>
+                        <div class="pano-video-block-half-cond">
+                            <h2>MVDiffusion</h2>
+                            <div class="video"><img class="lazy-loaded-image lazy"
+                                    data-src="html/comp_to_mvdiffusion/pano/43/pano_mvd.png"
+                                    data-vrsrc="html/comp_to_mvdiffusion/pano/43/pano_mvd.png"></div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="video-column">
+                        <div class="cond-video-block">
+                            <h2>Cond Frame</h2>
+                            <img class="lazy-loaded-image lazy" data-src="html/comp_to_mvdiffusion/pano/47/cond.png">
+                        </div>
+                        <div class="pano-video-block-half-cond">
+                            <h2>Ours</h2>
+                            <div class="video"><img class="lazy-loaded-image lazy"
+                                    data-src="html/comp_to_mvdiffusion/pano/47/pano_fix.png"
+                                    data-vrsrc="html/comp_to_mvdiffusion/pano/47/pano_fix.png"></div>
+                        </div>
+                        <div class="pano-video-block-half-cond">
+                            <h2>MVDiffusion</h2>
+                            <div class="video"><img class="lazy-loaded-image lazy"
+                                    data-src="html/comp_to_mvdiffusion/pano/47/pano_mvd.png"
+                                    data-vrsrc="html/comp_to_mvdiffusion/pano/47/pano_mvd.png"></div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="video-column">
+                        <div class="cond-video-block">
+                            <h2>Cond Frame</h2>
+                            <img class="lazy-loaded-image lazy" data-src="html/comp_to_mvdiffusion/pano/53/cond.png">
+                        </div>
+                        <div class="pano-video-block-half-cond">
+                            <h2>Ours</h2>
+                            <div class="video"><img class="lazy-loaded-image lazy"
+                                    data-src="html/comp_to_mvdiffusion/pano/53/pano_fix.png"
+                                    data-vrsrc="html/comp_to_mvdiffusion/pano/53/pano_fix.png"></div>
+                        </div>
+                        <div class="pano-video-block-half-cond">
+                            <h2>MVDiffusion</h2>
+                            <div class="video"><img class="lazy-loaded-image lazy"
+                                    data-src="html/comp_to_mvdiffusion/pano/53/pano_mvd.png"
+                                    data-vrsrc="html/comp_to_mvdiffusion/pano/53/pano_mvd.png"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="swap-prompt">
+            <h1>Video-conditional with Different Prompts</h1>
+            <div class="scroll-container">
+                <div class="row">
+                    <div class="video-column">
+                        <div class="cond-video-block">
+                            <h2>Cond Video</h2>
+                            <div class="lazyvideo"><video controls autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/swap_prompt/apano_0004_blue_ballon_street_sample_pano/cond.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                        <div class="pano-video-block">
+                            <h2>Pano Video</h2>
+                            <div class="video"><video playsinline autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/swap_prompt/apano_0004_blue_ballon_street_sample_pano/pano.mp4"
+                                        data-vrsrc="html/processed_results/swap_prompt/apano_0004_blue_ballon_street_sample_pano/pano.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                    </div>
+                    <div class="text-prompt">
+                        Prompt: A view of an abandoned old European street.
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="video-column">
+                        <div class="cond-video-block">
+                            <h2>Cond Video</h2>
+                            <div class="lazyvideo"><video controls autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/swap_prompt/apano_0001_blue_ballon_castle_sample_pano/cond.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                        <div class="pano-video-block">
+                            <h2>Pano Video</h2>
+                            <div class="video"><video playsinline autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/swap_prompt/apano_0001_blue_ballon_castle_sample_pano/pano.mp4"
+                                        data-vrsrc="html/processed_results/swap_prompt/apano_0001_blue_ballon_castle_sample_pano/pano.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                    </div>
+                    <div class="text-prompt">
+                        Prompt: A view of a vast towering castle.
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="video-column">
+                        <div class="cond-video-block">
+                            <h2>Cond Video</h2>
+                            <div class="lazyvideo"><video controls autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/swap_prompt/apano_0000_blue_ballon_ballons_sample_pano/cond.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                        <div class="pano-video-block">
+                            <h2>Pano Video</h2>
+                            <div class="video"><video playsinline autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/swap_prompt/apano_0000_blue_ballon_ballons_sample_pano/pano.mp4"
+                                        data-vrsrc="html/processed_results/swap_prompt/apano_0000_blue_ballon_ballons_sample_pano/pano.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                    </div>
+                    <div class="text-prompt">
+                        Prompt: A view of dozens of balloons lifting into the sky.
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="video-column">
+                        <div class="cond-video-block">
+                            <h2>Cond Video</h2>
+                            <div class="lazyvideo"><video controls autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/swap_prompt/apano_0003_blue_ballon_seashore_sample_pano/cond.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                        <div class="pano-video-block">
+                            <h2>Pano Video</h2>
+                            <div class="video"><video playsinline autoplay loop muted>
+                                    <source
+                                        data-src="html/processed_results/swap_prompt/apano_0003_blue_ballon_seashore_sample_pano/pano.mp4"
+                                        data-vrsrc="html/processed_results/swap_prompt/apano_0003_blue_ballon_seashore_sample_pano/pano.mp4"
+                                        type="video/mp4">Your browser does not support the video tag.
+                                </video></div>
+                        </div>
+                    </div>
+                    <div class="text-prompt">
+                        Prompt: A view of the seashore with the sea coming up against a cliff.
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer>
             <p>
-                    Recent breakthroughs in generative models have sparked unprecedented interest in a wide range of
-                    downstream applications, particularly in the realm of augmented and virtual reality, where immersive
-                    content creation is paramount. While significant progress has been made in generating high quality
-                    images and videos, creating coherent panoramic videos still remains an open challenge. In this work,
-                    we
-                    introduce VideoPanda, a novel approach for synthesizing 360-degree videos conditioned on text or
-                    video
-                    data. VideoPanda leverages multi-view attention layers to augment a video diffusion model, enabling
-                    it
-                    to be multi-view aware and capable of generating immersive panoramic content. Our model is jointly
-                    trained using three conditions: text-only, single-view video and single-view video with multi-view
-                    images. This unified training allows for video synthesis from text and video as well as long video
-                    generation using the same model trained once. Extensive evaluations on the WEB360 dataset,
-                    demonstrate
-                    that VideoPanda generates more realistic and coherent 360-degree panoramas across all input
-                    conditions
-                    compared to existing methods.
+                This website is constructed in part using code provided by <a
+                    href="https://akaneqwq.github.io/360DVD/">360DVD</a>. Thanks for their effort.
             </p>
-        </div>
+        </footer>
+
     </div>
-    </section>
-    <section id="long-pano"><h1>Autoregressive Generation</h1><div class="scroll-container"><div class="row">
-        <div class="video-column">
-            <div class="cond-video-block">
-                <h2>Cond Video</h2>
-                <div class="lazyvideo"><video controls autoplay loop muted><source data-src="html/processed_results/ar61_fix/apano_0007_A FPV drone shot through a castle on a cliff/cond.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-            <div class="pano-video-block">
-                <h2>Pano Video</h2>
-                <div class="video"><video playsinline autoplay loop muted><source data-src="html/processed_results/ar61_fix/apano_0007_A FPV drone shot through a castle on a cliff/pano.mp4" data-vrsrc="html/processed_results/ar61_fix/apano_0007_A FPV drone shot through a castle on a cliff/pano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-        </div>
-        <div class="text-prompt">
-            Prompt: A FPV drone shot through a castle on a cliff
-        </div>
-        </div><div class="row">
-        <div class="video-column">
-            <div class="cond-video-block">
-                <h2>Cond Video</h2>
-                <div class="lazyvideo"><video controls autoplay loop muted><source data-src="html/processed_results/ar61_fix/apano_0016_A slow cinematic push in on an ostrich standing in a 1980s kitchen/cond.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-            <div class="pano-video-block">
-                <h2>Pano Video</h2>
-                <div class="video"><video playsinline autoplay loop muted><source data-src="html/processed_results/ar61_fix/apano_0016_A slow cinematic push in on an ostrich standing in a 1980s kitchen/pano.mp4" data-vrsrc="html/processed_results/ar61_fix/apano_0016_A slow cinematic push in on an ostrich standing in a 1980s kitchen/pano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-        </div>
-        <div class="text-prompt">
-            Prompt: A slow cinematic push in on an ostrich standing in a 1980s kitchen
-        </div>
-        </div><div class="row">
-        <div class="video-column">
-            <div class="cond-video-block">
-                <h2>Cond Video</h2>
-                <div class="lazyvideo"><video controls autoplay loop muted><source data-src="html/processed_results/ar61_fix/apano_0020_A wide symmetrical shot of a painting in a museum. The camera zooms in close to the painting/cond.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-            <div class="pano-video-block">
-                <h2>Pano Video</h2>
-                <div class="video"><video playsinline autoplay loop muted><source data-src="html/processed_results/ar61_fix/apano_0020_A wide symmetrical shot of a painting in a museum. The camera zooms in close to the painting/pano.mp4" data-vrsrc="html/processed_results/ar61_fix/apano_0020_A wide symmetrical shot of a painting in a museum. The camera zooms in close to the painting/pano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-        </div>
-        <div class="text-prompt">
-            Prompt: A wide symmetrical shot of a painting in a museum. The camera zooms in close to the painting
-        </div>
-        </div><div class="row">
-        <div class="video-column">
-            <div class="cond-video-block">
-                <h2>Cond Video</h2>
-                <div class="lazyvideo"><video controls autoplay loop muted><source data-src="html/processed_results/ar61_fix/apano_0013_Internal window of a train moving at hyper-speed in an old European city/cond.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-            <div class="pano-video-block">
-                <h2>Pano Video</h2>
-                <div class="video"><video playsinline autoplay loop muted><source data-src="html/processed_results/ar61_fix/apano_0013_Internal window of a train moving at hyper-speed in an old European city/pano.mp4" data-vrsrc="html/processed_results/ar61_fix/apano_0013_Internal window of a train moving at hyper-speed in an old European city/pano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-        </div>
-        <div class="text-prompt">
-            Prompt: Internal window of a train moving at hyper-speed in an old European city
-        </div>
-        </div><div class="row">
-        <div class="video-column">
-            <div class="cond-video-block">
-                <h2>Cond Video</h2>
-                <div class="lazyvideo"><video controls autoplay loop muted><source data-src="html/processed_results/ar61_fix/apano_0032_FPV flying through a colorful coral lined streets of an underwater suburban neighborhood/cond.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-            <div class="pano-video-block">
-                <h2>Pano Video</h2>
-                <div class="video"><video playsinline autoplay loop muted><source data-src="html/processed_results/ar61_fix/apano_0032_FPV flying through a colorful coral lined streets of an underwater suburban neighborhood/pano.mp4" data-vrsrc="html/processed_results/ar61_fix/apano_0032_FPV flying through a colorful coral lined streets of an underwater suburban neighborhood/pano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-        </div>
-        <div class="text-prompt">
-            Prompt: FPV flying through a colorful coral lined streets of an underwater suburban neighborhood
-        </div>
-        </div><div class="row">
-        <div class="video-column">
-            <div class="cond-video-block">
-                <h2>Cond Video</h2>
-                <div class="lazyvideo"><video controls autoplay loop muted><source data-src="html/processed_results/ar61_fix/apano_0010_A man made of rocks walking in the forest, full-body shot/cond.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-            <div class="pano-video-block">
-                <h2>Pano Video</h2>
-                <div class="video"><video playsinline autoplay loop muted><source data-src="html/processed_results/ar61_fix/apano_0010_A man made of rocks walking in the forest, full-body shot/pano.mp4" data-vrsrc="html/processed_results/ar61_fix/apano_0010_A man made of rocks walking in the forest, full-body shot/pano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-        </div>
-        <div class="text-prompt">
-            Prompt: A man made of rocks walking in the forest, full-body shot
-        </div>
-        </div><div class="row">
-        <div class="video-column">
-            <div class="cond-video-block">
-                <h2>Cond Video</h2>
-                <div class="lazyvideo"><video controls autoplay loop muted><source data-src="html/processed_results/ar61_fix/apano_0028_Close up shot of a living flame wisp darting through a bustling fantasy market at night/cond.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-            <div class="pano-video-block">
-                <h2>Pano Video</h2>
-                <div class="video"><video playsinline autoplay loop muted><source data-src="html/processed_results/ar61_fix/apano_0028_Close up shot of a living flame wisp darting through a bustling fantasy market at night/pano.mp4" data-vrsrc="html/processed_results/ar61_fix/apano_0028_Close up shot of a living flame wisp darting through a bustling fantasy market at night/pano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-        </div>
-        <div class="text-prompt">
-            Prompt: Close up shot of a living flame wisp darting through a bustling fantasy market at night
-        </div>
-        </div><div class="row">
-        <div class="video-column">
-            <div class="cond-video-block">
-                <h2>Cond Video</h2>
-                <div class="lazyvideo"><video controls autoplay loop muted><source data-src="html/processed_results/ar61_fix/apano_0022_A FPV shot zooming through a tunnel into a vibrant underwater space/cond.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-            <div class="pano-video-block">
-                <h2>Pano Video</h2>
-                <div class="video"><video playsinline autoplay loop muted><source data-src="html/processed_results/ar61_fix/apano_0022_A FPV shot zooming through a tunnel into a vibrant underwater space/pano.mp4" data-vrsrc="html/processed_results/ar61_fix/apano_0022_A FPV shot zooming through a tunnel into a vibrant underwater space/pano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-        </div>
-        <div class="text-prompt">
-            Prompt: A FPV shot zooming through a tunnel into a vibrant underwater space
-        </div>
-        </div><div class="row">
-        <div class="video-column">
-            <div class="cond-video-block">
-                <h2>Cond Video</h2>
-                <div class="lazyvideo"><video controls autoplay loop muted><source data-src="html/processed_results/ar61_fix/apano_0025_A Japanese animated film of a young woman standing on a ship and looking back at camera/cond.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-            <div class="pano-video-block">
-                <h2>Pano Video</h2>
-                <div class="video"><video playsinline autoplay loop muted><source data-src="html/processed_results/ar61_fix/apano_0025_A Japanese animated film of a young woman standing on a ship and looking back at camera/pano.mp4" data-vrsrc="html/processed_results/ar61_fix/apano_0025_A Japanese animated film of a young woman standing on a ship and looking back at camera/pano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-        </div>
-        <div class="text-prompt">
-            Prompt: A Japanese animated film of a young woman standing on a ship and looking back at camera
-        </div>
-        </div><div class="row">
-        <div class="video-column">
-            <div class="cond-video-block">
-                <h2>Cond Video</h2>
-                <div class="lazyvideo"><video controls autoplay loop muted><source data-src="html/processed_results/ar61_fix/apano_0030_Dragon-toucan walking through the Serengeti/cond.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-            <div class="pano-video-block">
-                <h2>Pano Video</h2>
-                <div class="video"><video playsinline autoplay loop muted><source data-src="html/processed_results/ar61_fix/apano_0030_Dragon-toucan walking through the Serengeti/pano.mp4" data-vrsrc="html/processed_results/ar61_fix/apano_0030_Dragon-toucan walking through the Serengeti/pano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-        </div>
-        <div class="text-prompt">
-            Prompt: Dragon-toucan walking through the Serengeti
-        </div>
-        </div><div class="row">
-        <div class="video-column">
-            <div class="cond-video-block">
-                <h2>Cond Video</h2>
-                <div class="lazyvideo"><video controls autoplay loop muted><source data-src="html/processed_results/ar61_fix/apano_0014_A pink pig running fast toward the camera in an alley in Tokyo/cond.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-            <div class="pano-video-block">
-                <h2>Pano Video</h2>
-                <div class="video"><video playsinline autoplay loop muted><source data-src="html/processed_results/ar61_fix/apano_0014_A pink pig running fast toward the camera in an alley in Tokyo/pano.mp4" data-vrsrc="html/processed_results/ar61_fix/apano_0014_A pink pig running fast toward the camera in an alley in Tokyo/pano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-        </div>
-        <div class="text-prompt">
-            Prompt: A pink pig running fast toward the camera in an alley in Tokyo
-        </div>
-        </div><div class="row">
-        <div class="video-column">
-            <div class="cond-video-block">
-                <h2>Cond Video</h2>
-                <div class="lazyvideo"><video controls autoplay loop muted><source data-src="html/processed_results/ar61_fix/apano_0051_merged_id063_start076_end080_sim16.60/cond.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-            <div class="pano-video-block">
-                <h2>Pano Video</h2>
-                <div class="video"><video playsinline autoplay loop muted><source data-src="html/processed_results/ar61_fix/apano_0051_merged_id063_start076_end080_sim16.60/pano.mp4" data-vrsrc="html/processed_results/ar61_fix/apano_0051_merged_id063_start076_end080_sim16.60/pano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-        </div>
-        <div class="text-prompt">
-            Prompt: A view of a quaint town nestled between rolling hills, with wooden houses, a winding river, and a clear blue sky overhead.
-        </div>
-        </div><div class="row">
-        <div class="video-column">
-            <div class="cond-video-block">
-                <h2>Cond Video</h2>
-                <div class="lazyvideo"><video controls autoplay loop muted><source data-src="html/processed_results/ar61_fix/apano_0041_merged_id060_start074_end076_sim19.51/cond.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-            <div class="pano-video-block">
-                <h2>Pano Video</h2>
-                <div class="video"><video playsinline autoplay loop muted><source data-src="html/processed_results/ar61_fix/apano_0041_merged_id060_start074_end076_sim19.51/pano.mp4" data-vrsrc="html/processed_results/ar61_fix/apano_0041_merged_id060_start074_end076_sim19.51/pano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-        </div>
-        <div class="text-prompt">
-            Prompt: A view of a glass with a red beverage and ice cubes, placed on a wooden table, with a potted plant in the background.
-        </div>
-        </div><div class="row">
-        <div class="video-column">
-            <div class="cond-video-block">
-                <h2>Cond Video</h2>
-                <div class="lazyvideo"><video controls autoplay loop muted><source data-src="html/processed_results/ar61_fix/apano_0006_gunung bromo/cond.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-            <div class="pano-video-block">
-                <h2>Pano Video</h2>
-                <div class="video"><video playsinline autoplay loop muted><source data-src="html/processed_results/ar61_fix/apano_0006_gunung bromo/pano.mp4" data-vrsrc="html/processed_results/ar61_fix/apano_0006_gunung bromo/pano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-        </div>
-        <div class="text-prompt">
-            Prompt: gunung bromo
-        </div>
-        </div><div class="row">
-        <div class="video-column">
-            <div class="cond-video-block">
-                <h2>Cond Video</h2>
-                <div class="lazyvideo"><video controls autoplay loop muted><source data-src="html/processed_results/ar61_fix/apano_0062_merged_id030_start027_end037_sim11.76/cond.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-            <div class="pano-video-block">
-                <h2>Pano Video</h2>
-                <div class="video"><video playsinline autoplay loop muted><source data-src="html/processed_results/ar61_fix/apano_0062_merged_id030_start027_end037_sim11.76/pano.mp4" data-vrsrc="html/processed_results/ar61_fix/apano_0062_merged_id030_start027_end037_sim11.76/pano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-        </div>
-        <div class="text-prompt">
-            Prompt: A view of a snow-covered road surrounded by tall pine trees, with a red sports car driving on it.
-        </div>
-        </div><div class="row">
-        <div class="video-column">
-            <div class="cond-video-block">
-                <h2>Cond Video</h2>
-                <div class="lazyvideo"><video controls autoplay loop muted><source data-src="html/processed_results/ar61_fix/apano_0026_An empty warehouse dynamically transformed by flora that explode from the ground/cond.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-            <div class="pano-video-block">
-                <h2>Pano Video</h2>
-                <div class="video"><video playsinline autoplay loop muted><source data-src="html/processed_results/ar61_fix/apano_0026_An empty warehouse dynamically transformed by flora that explode from the ground/pano.mp4" data-vrsrc="html/processed_results/ar61_fix/apano_0026_An empty warehouse dynamically transformed by flora that explode from the ground/pano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-        </div>
-        <div class="text-prompt">
-            Prompt: An empty warehouse dynamically transformed by flora that explode from the ground
-        </div>
-        </div><div class="row">
-        <div class="video-column">
-            <div class="cond-video-block">
-                <h2>Cond Video</h2>
-                <div class="lazyvideo"><video controls autoplay loop muted><source data-src="html/processed_results/ar61_fix/apano_0003_Make the scene dramatic with thunders all over, and fires blowing, depicting a terrific sound thundering across the sky and the earth on the battlefield. The scene is dark, intense, and colorful/cond.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-            <div class="pano-video-block">
-                <h2>Pano Video</h2>
-                <div class="video"><video playsinline autoplay loop muted><source data-src="html/processed_results/ar61_fix/apano_0003_Make the scene dramatic with thunders all over, and fires blowing, depicting a terrific sound thundering across the sky and the earth on the battlefield. The scene is dark, intense, and colorful/pano.mp4" data-vrsrc="html/processed_results/ar61_fix/apano_0003_Make the scene dramatic with thunders all over, and fires blowing, depicting a terrific sound thundering across the sky and the earth on the battlefield. The scene is dark, intense, and colorful/pano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-        </div>
-        <div class="text-prompt">
-            Prompt: Make the scene dramatic with thunders all over, and fires blowing, depicting a terrific sound thundering across the sky and the earth on the battlefield. The scene is dark, intense, and colorful
-        </div>
-        </div></div></section><section id="ours-vs-360dvd"><h1>Ours vs. 360DVD</h1><div class="scroll-container"><div class="row">
-        <div class="video-column">
-            <div class="pano-video-block-half">
-                <h2>Ours</h2>
-                <div class="video"><video playsinline autoplay loop muted><source data-src="html/processed_results/comp_to_360dvd/Church_of_the_Intercession_on_the_River_Nerl_in_spring_flood._Aerial_360_video_in_16K_t008_sample_pano/pano_fix.mp4" data-vrsrc="html/processed_results/comp_to_360dvd/Church_of_the_Intercession_on_the_River_Nerl_in_spring_flood._Aerial_360_video_in_16K_t008_sample_pano/pano_fix.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-            <div class="pano-video-block-half">
-                <h2>360DVD</h2>
-                <div class="video"><video playsinline autoplay loop muted><source data-src="html/baseline/360dvd/1-A view of the Church of the Intercession on the Nerl, with its iconic green onion-shaped dome, situated near a flooded river, surrounded by snow-covered landscapes and distant settlements..mp4" data-vrsrc="html/baseline/360dvd/1-A view of the Church of the Intercession on the Nerl, with its iconic green onion-shaped dome, situated near a flooded river, surrounded by snow-covered landscapes and distant settlements..mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
+</body>
 
-        </div>
-        <div class="text-prompt">
-            Prompt: A view of the Church of the Intercession on the Nerl, with its iconic green onion-shaped dome, situated near a flooded river, surrounded by snow-covered landscapes and distant settlements.
-        </div>
-        </div><div class="row">
-        <div class="video-column">
-            <div class="pano-video-block-half">
-                <h2>Ours</h2>
-                <div class="video"><video playsinline autoplay loop muted><source data-src="html/processed_results/comp_to_360dvd/360__Antarctica___Unexpected_Snow___National_Geographic_t005_sample_pano/pano_fix.mp4" data-vrsrc="html/processed_results/comp_to_360dvd/360__Antarctica___Unexpected_Snow___National_Geographic_t005_sample_pano/pano_fix.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-            <div class="pano-video-block-half">
-                <h2>360DVD</h2>
-                <div class="video"><video playsinline autoplay loop muted><source data-src="html/baseline/360dvd/0-A view of snow-covered mountains, a partially frozen body of water, and floating ice chunks..mp4" data-vrsrc="html/baseline/360dvd/0-A view of snow-covered mountains, a partially frozen body of water, and floating ice chunks..mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-
-        </div>
-        <div class="text-prompt">
-            Prompt: A view of snow-covered mountains, a partially frozen body of water, and floating ice chunks.
-        </div>
-        </div><div class="row">
-        <div class="video-column">
-            <div class="pano-video-block-half">
-                <h2>Ours</h2>
-                <div class="video"><video playsinline autoplay loop muted><source data-src="html/processed_results/comp_to_360dvd/360__Baby_Pandas___Nat_Geo_WILD_t007_sample_pano/pano_fix.mp4" data-vrsrc="html/processed_results/comp_to_360dvd/360__Baby_Pandas___Nat_Geo_WILD_t007_sample_pano/pano_fix.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-            <div class="pano-video-block-half">
-                <h2>360DVD</h2>
-                <div class="video"><video playsinline autoplay loop muted><source data-src="html/baseline/360dvd/2-A view of a tree trunk surrounded by fallen leaves, with branches extending outwards and a blurred background suggesting a garden or park setting..mp4" data-vrsrc="html/baseline/360dvd/2-A view of a tree trunk surrounded by fallen leaves, with branches extending outwards and a blurred background suggesting a garden or park setting..mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-
-        </div>
-        <div class="text-prompt">
-            Prompt: A view of a tree trunk surrounded by fallen leaves, with branches extending outwards and a blurred background suggesting a garden or park setting.
-        </div>
-        </div></div></section><section id="video-cond"><h1>Video-Condition Generation</h1><div class="scroll-container"><div class="row">
-        <div class="video-column">
-            <div class="cond-video-block">
-                <h2>Cond Video</h2>
-                <div class="lazyvideo"><video controls autoplay loop muted><source data-src="html/processed_results/video_cond/apano_0142_Kostroma._Golden_Ring_of_Russia._360_video_teaser_in_11K_t002_sample_pano/cond.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-            <div class="pano-video-block">
-                <h2>Pano Video</h2>
-                <div class="video"><video playsinline autoplay loop muted><source data-src="html/processed_results/video_cond/apano_0142_Kostroma._Golden_Ring_of_Russia._360_video_teaser_in_11K_t002_sample_pano/pano_fix.mp4" data-vrsrc="html/processed_results/video_cond/apano_0142_Kostroma._Golden_Ring_of_Russia._360_video_teaser_in_11K_t002_sample_pano/pano_fix.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-        </div>
-        <div class="text-prompt">
-            Prompt: A view of the historic Ipatiev Monastery, with its white walls, green domes, and golden crosses, surrounded by a protective wall and overlooking a serene river.
-        </div>
-        </div><div class="row">
-        <div class="video-column">
-            <div class="cond-video-block">
-                <h2>Cond Video</h2>
-                <div class="lazyvideo"><video controls autoplay loop muted><source data-src="html/processed_results/video_cond/apano_0101_Underwater_Wonders__Red_Sea__Egypt._8K_360_video_t040_sample_pano/cond.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-            <div class="pano-video-block">
-                <h2>Pano Video</h2>
-                <div class="video"><video playsinline autoplay loop muted><source data-src="html/processed_results/video_cond/apano_0101_Underwater_Wonders__Red_Sea__Egypt._8K_360_video_t040_sample_pano/pano_fix.mp4" data-vrsrc="html/processed_results/video_cond/apano_0101_Underwater_Wonders__Red_Sea__Egypt._8K_360_video_t040_sample_pano/pano_fix.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-        </div>
-        <div class="text-prompt">
-            Prompt: A view of the vibrant coral reefs under the clear blue waters of the ocean.
-        </div>
-        </div><div class="row">
-        <div class="video-column">
-            <div class="cond-video-block">
-                <h2>Cond Video</h2>
-                <div class="lazyvideo"><video controls autoplay loop muted><source data-src="html/processed_results/video_cond/apano_0005_360__Antarctica___Unexpected_Snow___National_Geographic_t006_sample_pano/cond.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-            <div class="pano-video-block">
-                <h2>Pano Video</h2>
-                <div class="video"><video playsinline autoplay loop muted><source data-src="html/processed_results/video_cond/apano_0005_360__Antarctica___Unexpected_Snow___National_Geographic_t006_sample_pano/pano_fix.mp4" data-vrsrc="html/processed_results/video_cond/apano_0005_360__Antarctica___Unexpected_Snow___National_Geographic_t006_sample_pano/pano_fix.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-        </div>
-        <div class="text-prompt">
-            Prompt: A view of the rocky shore, two inflatable boats, and the vast expanse of the sea under a cloudy sky.
-        </div>
-        </div><div class="row">
-        <div class="video-column">
-            <div class="cond-video-block">
-                <h2>Cond Video</h2>
-                <div class="lazyvideo"><video controls autoplay loop muted><source data-src="html/processed_results/video_cond/apano_0016_360__Baby_Pandas___Nat_Geo_WILD_t009_sample_pano/cond.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-            <div class="pano-video-block">
-                <h2>Pano Video</h2>
-                <div class="video"><video playsinline autoplay loop muted><source data-src="html/processed_results/video_cond/apano_0016_360__Baby_Pandas___Nat_Geo_WILD_t009_sample_pano/pano_fix.mp4" data-vrsrc="html/processed_results/video_cond/apano_0016_360__Baby_Pandas___Nat_Geo_WILD_t009_sample_pano/pano_fix.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-        </div>
-        <div class="text-prompt">
-            Prompt: A view of a panda's face peeking from behind a tree branch amidst lush green foliage.
-        </div>
-        </div><div class="row">
-        <div class="video-column">
-            <div class="cond-video-block">
-                <h2>Cond Video</h2>
-                <div class="lazyvideo"><video controls autoplay loop muted><source data-src="html/processed_results/video_cond/apano_0152_Lofoten_Islands__Norway._Teaser._8K_360_video._t004_sample_pano/cond.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-            <div class="pano-video-block">
-                <h2>Pano Video</h2>
-                <div class="video"><video playsinline autoplay loop muted><source data-src="html/processed_results/video_cond/apano_0152_Lofoten_Islands__Norway._Teaser._8K_360_video._t004_sample_pano/pano_fix.mp4" data-vrsrc="html/processed_results/video_cond/apano_0152_Lofoten_Islands__Norway._Teaser._8K_360_video._t004_sample_pano/pano_fix.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-        </div>
-        <div class="text-prompt">
-            Prompt: A view of a snow-covered cityscape with modern buildings, a harbor filled with boats, and majestic snow-capped mountains in the background during sunset.
-        </div>
-        </div><div class="row">
-        <div class="video-column">
-            <div class="cond-video-block">
-                <h2>Cond Video</h2>
-                <div class="lazyvideo"><video controls autoplay loop muted><source data-src="html/processed_results/video_cond/apano_0109_Elton_Lake__the_biggest_mineral_lake_in_Europe._8K_aerial_360_video._t001_sample_pano/cond.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-            <div class="pano-video-block">
-                <h2>Pano Video</h2>
-                <div class="video"><video playsinline autoplay loop muted><source data-src="html/processed_results/video_cond/apano_0109_Elton_Lake__the_biggest_mineral_lake_in_Europe._8K_aerial_360_video._t001_sample_pano/pano_fix.mp4" data-vrsrc="html/processed_results/video_cond/apano_0109_Elton_Lake__the_biggest_mineral_lake_in_Europe._8K_aerial_360_video._t001_sample_pano/pano_fix.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-        </div>
-        <div class="text-prompt">
-            Prompt: A view of a long, straight road stretching through a vast, open field with sparse vegetation.
-        </div>
-        </div><div class="row">
-        <div class="video-column">
-            <div class="cond-video-block">
-                <h2>Cond Video</h2>
-                <div class="lazyvideo"><video controls autoplay loop muted><source data-src="html/processed_results/video_cond/apano_0138_Hacha_Falls__Canaima_Lagoon__Venezuela._360_video_in_5K._t001_sample_pano/cond.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-            <div class="pano-video-block">
-                <h2>Pano Video</h2>
-                <div class="video"><video playsinline autoplay loop muted><source data-src="html/processed_results/video_cond/apano_0138_Hacha_Falls__Canaima_Lagoon__Venezuela._360_video_in_5K._t001_sample_pano/pano_fix.mp4" data-vrsrc="html/processed_results/video_cond/apano_0138_Hacha_Falls__Canaima_Lagoon__Venezuela._360_video_in_5K._t001_sample_pano/pano_fix.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-        </div>
-        <div class="text-prompt">
-            Prompt: A view of the turbulent river, surrounded by lush greenery and tall palm trees, with distant mountains and a cloudy sky overhead.
-        </div>
-        </div><div class="row">
-        <div class="video-column">
-            <div class="cond-video-block">
-                <h2>Cond Video</h2>
-                <div class="lazyvideo"><video controls autoplay loop muted><source data-src="html/processed_results/video_cond/apano_0145_Kostroma._Golden_Ring_of_Russia._360_video_teaser_in_11K_t005_sample_pano/cond.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-            <div class="pano-video-block">
-                <h2>Pano Video</h2>
-                <div class="video"><video playsinline autoplay loop muted><source data-src="html/processed_results/video_cond/apano_0145_Kostroma._Golden_Ring_of_Russia._360_video_teaser_in_11K_t005_sample_pano/pano_fix.mp4" data-vrsrc="html/processed_results/video_cond/apano_0145_Kostroma._Golden_Ring_of_Russia._360_video_teaser_in_11K_t005_sample_pano/pano_fix.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-        </div>
-        <div class="text-prompt">
-            Prompt: A view of a serene lake surrounded by autumn trees, with a town in the distance and a church spire on the left.
-        </div>
-        </div><div class="row">
-        <div class="video-column">
-            <div class="cond-video-block">
-                <h2>Cond Video</h2>
-                <div class="lazyvideo"><video controls autoplay loop muted><source data-src="html/processed_results/video_cond/apano_0140_Hacha_Falls__Canaima_Lagoon__Venezuela._360_video_in_5K._t003_sample_pano/cond.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-            <div class="pano-video-block">
-                <h2>Pano Video</h2>
-                <div class="video"><video playsinline autoplay loop muted><source data-src="html/processed_results/video_cond/apano_0140_Hacha_Falls__Canaima_Lagoon__Venezuela._360_video_in_5K._t003_sample_pano/pano_fix.mp4" data-vrsrc="html/processed_results/video_cond/apano_0140_Hacha_Falls__Canaima_Lagoon__Venezuela._360_video_in_5K._t003_sample_pano/pano_fix.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-        </div>
-        <div class="text-prompt">
-            Prompt: A view of the turbulent river, surrounded by lush greenery, with mountains in the distance under a partly cloudy sky.
-        </div>
-        </div><div class="row">
-        <div class="video-column">
-            <div class="cond-video-block">
-                <h2>Cond Video</h2>
-                <div class="lazyvideo"><video controls autoplay loop muted><source data-src="html/processed_results/video_cond/apano_0097_Church_of_the_Intercession_on_the_River_Nerl_in_spring_flood._Aerial_360_video_in_16K_t002_sample_pano/cond.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-            <div class="pano-video-block">
-                <h2>Pano Video</h2>
-                <div class="video"><video playsinline autoplay loop muted><source data-src="html/processed_results/video_cond/apano_0097_Church_of_the_Intercession_on_the_River_Nerl_in_spring_flood._Aerial_360_video_in_16K_t002_sample_pano/pano_fix.mp4" data-vrsrc="html/processed_results/video_cond/apano_0097_Church_of_the_Intercession_on_the_River_Nerl_in_spring_flood._Aerial_360_video_in_16K_t002_sample_pano/pano_fix.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-        </div>
-        <div class="text-prompt">
-            Prompt: A view of a serene landscape with a church at its center, surrounded by water, with trees reflecting on the calm water surface and a setting sun in the background.
-        </div>
-        </div><div class="row">
-        <div class="video-column">
-            <div class="cond-video-block">
-                <h2>Cond Video</h2>
-                <div class="lazyvideo"><video controls autoplay loop muted><source data-src="html/processed_results/video_cond/apano_0117_Elton_Lake__the_biggest_mineral_lake_in_Europe._8K_aerial_360_video._t002_sample_pano/cond.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-            <div class="pano-video-block">
-                <h2>Pano Video</h2>
-                <div class="video"><video playsinline autoplay loop muted><source data-src="html/processed_results/video_cond/apano_0117_Elton_Lake__the_biggest_mineral_lake_in_Europe._8K_aerial_360_video._t002_sample_pano/pano_fix.mp4" data-vrsrc="html/processed_results/video_cond/apano_0117_Elton_Lake__the_biggest_mineral_lake_in_Europe._8K_aerial_360_video._t002_sample_pano/pano_fix.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-        </div>
-        <div class="text-prompt">
-            Prompt: A view of the vast salt flats, the serene sky with scattered clouds, and the mirror-like reflection on the salt flat's surface.
-        </div>
-        </div><div class="row">
-        <div class="video-column">
-            <div class="cond-video-block">
-                <h2>Cond Video</h2>
-                <div class="lazyvideo"><video controls autoplay loop muted><source data-src="html/processed_results/video_cond/apano_0061_360__Dive_Through_an_Oil_Rig_Ecosystem___National_Geographic_t004_sample_pano/cond.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-            <div class="pano-video-block">
-                <h2>Pano Video</h2>
-                <div class="video"><video playsinline autoplay loop muted><source data-src="html/processed_results/video_cond/apano_0061_360__Dive_Through_an_Oil_Rig_Ecosystem___National_Geographic_t004_sample_pano/pano_fix.mp4" data-vrsrc="html/processed_results/video_cond/apano_0061_360__Dive_Through_an_Oil_Rig_Ecosystem___National_Geographic_t004_sample_pano/pano_fix.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-        </div>
-        <div class="text-prompt">
-            Prompt: A view of an offshore oil rig, set against a serene backdrop of calm waters and a radiant sunrise or sunset.
-        </div>
-        </div><div class="row">
-        <div class="video-column">
-            <div class="cond-video-block">
-                <h2>Cond Video</h2>
-                <div class="lazyvideo"><video controls autoplay loop muted><source data-src="html/processed_results/video_cond/apano_0013_360__Baby_Pandas___Nat_Geo_WILD_t006_sample_pano/cond.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-            <div class="pano-video-block">
-                <h2>Pano Video</h2>
-                <div class="video"><video playsinline autoplay loop muted><source data-src="html/processed_results/video_cond/apano_0013_360__Baby_Pandas___Nat_Geo_WILD_t006_sample_pano/pano_fix.mp4" data-vrsrc="html/processed_results/video_cond/apano_0013_360__Baby_Pandas___Nat_Geo_WILD_t006_sample_pano/pano_fix.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-        </div>
-        <div class="text-prompt">
-            Prompt: A view of a panda lying on the grass, another panda standing nearby, a wooden platform with a panda resting on it, and tall trees surrounding the area.
-        </div>
-        </div><div class="row">
-        <div class="video-column">
-            <div class="cond-video-block">
-                <h2>Cond Video</h2>
-                <div class="lazyvideo"><video controls autoplay loop muted><source data-src="html/processed_results/video_cond/apano_0127_Elton_Lake__the_biggest_mineral_lake_in_Europe._8K_aerial_360_video._t011_sample_pano/cond.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-            <div class="pano-video-block">
-                <h2>Pano Video</h2>
-                <div class="video"><video playsinline autoplay loop muted><source data-src="html/processed_results/video_cond/apano_0127_Elton_Lake__the_biggest_mineral_lake_in_Europe._8K_aerial_360_video._t011_sample_pano/pano_fix.mp4" data-vrsrc="html/processed_results/video_cond/apano_0127_Elton_Lake__the_biggest_mineral_lake_in_Europe._8K_aerial_360_video._t011_sample_pano/pano_fix.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-        </div>
-        <div class="text-prompt">
-            Prompt: A view of a vast grassy field with two horses grazing. The horse on the left is white, while the one on the right is brown.
-        </div>
-        </div><div class="row">
-        <div class="video-column">
-            <div class="cond-video-block">
-                <h2>Cond Video</h2>
-                <div class="lazyvideo"><video controls autoplay loop muted><source data-src="html/processed_results/video_cond/apano_0161_Swayambhunath__the_Monkey_Temple__Kathmandu__Nepal._16K_360_video._t001_sample_pano/cond.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-            <div class="pano-video-block">
-                <h2>Pano Video</h2>
-                <div class="video"><video playsinline autoplay loop muted><source data-src="html/processed_results/video_cond/apano_0161_Swayambhunath__the_Monkey_Temple__Kathmandu__Nepal._16K_360_video._t001_sample_pano/pano_fix.mp4" data-vrsrc="html/processed_results/video_cond/apano_0161_Swayambhunath__the_Monkey_Temple__Kathmandu__Nepal._16K_360_video._t001_sample_pano/pano_fix.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-        </div>
-        <div class="text-prompt">
-            Prompt: A view of the majestic stupa adorned with prayer flags, surrounded by smaller structures and bustling with devotees.
-        </div>
-        </div><div class="row">
-        <div class="video-column">
-            <div class="cond-video-block">
-                <h2>Cond Video</h2>
-                <div class="lazyvideo"><video controls autoplay loop muted><source data-src="html/processed_results/video_cond/apano_0139_Hacha_Falls__Canaima_Lagoon__Venezuela._360_video_in_5K._t002_sample_pano/cond.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-            <div class="pano-video-block">
-                <h2>Pano Video</h2>
-                <div class="video"><video playsinline autoplay loop muted><source data-src="html/processed_results/video_cond/apano_0139_Hacha_Falls__Canaima_Lagoon__Venezuela._360_video_in_5K._t002_sample_pano/pano_fix.mp4" data-vrsrc="html/processed_results/video_cond/apano_0139_Hacha_Falls__Canaima_Lagoon__Venezuela._360_video_in_5K._t002_sample_pano/pano_fix.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-        </div>
-        <div class="text-prompt">
-            Prompt: A view of the turbulent river, the cascading waterfalls, the lush green hills, and the vast sky with scattered clouds.
-        </div>
-        </div><div class="row">
-        <div class="video-column">
-            <div class="cond-video-block">
-                <h2>Cond Video</h2>
-                <div class="lazyvideo"><video controls autoplay loop muted><source data-src="html/processed_results/video_cond/apano_0126_Elton_Lake__the_biggest_mineral_lake_in_Europe._8K_aerial_360_video._t010_sample_pano/cond.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-            <div class="pano-video-block">
-                <h2>Pano Video</h2>
-                <div class="video"><video playsinline autoplay loop muted><source data-src="html/processed_results/video_cond/apano_0126_Elton_Lake__the_biggest_mineral_lake_in_Europe._8K_aerial_360_video._t010_sample_pano/pano_fix.mp4" data-vrsrc="html/processed_results/video_cond/apano_0126_Elton_Lake__the_biggest_mineral_lake_in_Europe._8K_aerial_360_video._t010_sample_pano/pano_fix.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-        </div>
-        <div class="text-prompt">
-            Prompt: A view of several horses grazing in a vast field under a cloudy sky.
-        </div>
-        </div><div class="row">
-        <div class="video-column">
-            <div class="cond-video-block">
-                <h2>Cond Video</h2>
-                <div class="lazyvideo"><video controls autoplay loop muted><source data-src="html/processed_results/video_cond/apano_0023_360__Antarctica___Journey_Through_The_Ice___National_Geographic_t004_sample_pano/cond.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-            <div class="pano-video-block">
-                <h2>Pano Video</h2>
-                <div class="video"><video playsinline autoplay loop muted><source data-src="html/processed_results/video_cond/apano_0023_360__Antarctica___Journey_Through_The_Ice___National_Geographic_t004_sample_pano/pano_fix.mp4" data-vrsrc="html/processed_results/video_cond/apano_0023_360__Antarctica___Journey_Through_The_Ice___National_Geographic_t004_sample_pano/pano_fix.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-        </div>
-        <div class="text-prompt">
-            Prompt: A view of a vast icy expanse with broken ice floes, a ship's bow on the right, and a horizon with a hint of land and a cloudy sky.
-        </div>
-        </div><div class="row">
-        <div class="video-column">
-            <div class="cond-video-block">
-                <h2>Cond Video</h2>
-                <div class="lazyvideo"><video controls autoplay loop muted><source data-src="html/processed_results/video_cond/apano_0067_360__Antarctica___Journey_Through_The_Ice___National_Geographic_t008_sample_pano/cond.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-            <div class="pano-video-block">
-                <h2>Pano Video</h2>
-                <div class="video"><video playsinline autoplay loop muted><source data-src="html/processed_results/video_cond/apano_0067_360__Antarctica___Journey_Through_The_Ice___National_Geographic_t008_sample_pano/pano_fix.mp4" data-vrsrc="html/processed_results/video_cond/apano_0067_360__Antarctica___Journey_Through_The_Ice___National_Geographic_t008_sample_pano/pano_fix.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-        </div>
-        <div class="text-prompt">
-            Prompt: A view of icy landscapes, floating icebergs, a group of penguins on an ice sheet, snow-covered hills, and a vast expanse of water under a partly cloudy sky.
-        </div>
-        </div><div class="row">
-        <div class="video-column">
-            <div class="cond-video-block">
-                <h2>Cond Video</h2>
-                <div class="lazyvideo"><video controls autoplay loop muted><source data-src="html/processed_results/video_cond/apano_0078_360__Antarctica___Unexpected_Snow___National_Geographic_t001_sample_pano/cond.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-            <div class="pano-video-block">
-                <h2>Pano Video</h2>
-                <div class="video"><video playsinline autoplay loop muted><source data-src="html/processed_results/video_cond/apano_0078_360__Antarctica___Unexpected_Snow___National_Geographic_t001_sample_pano/pano_fix.mp4" data-vrsrc="html/processed_results/video_cond/apano_0078_360__Antarctica___Unexpected_Snow___National_Geographic_t001_sample_pano/pano_fix.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-        </div>
-        <div class="text-prompt">
-            Prompt: A view of icy mountains, a body of water with floating ice, and a foggy atmosphere.
-        </div>
-        </div><div class="row">
-        <div class="video-column">
-            <div class="cond-video-block">
-                <h2>Cond Video</h2>
-                <div class="lazyvideo"><video controls autoplay loop muted><source data-src="html/processed_results/video_cond/apano_0096_Church_of_the_Intercession_on_the_River_Nerl_in_spring_flood._Aerial_360_video_in_16K_t001_sample_pano/cond.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-            <div class="pano-video-block">
-                <h2>Pano Video</h2>
-                <div class="video"><video playsinline autoplay loop muted><source data-src="html/processed_results/video_cond/apano_0096_Church_of_the_Intercession_on_the_River_Nerl_in_spring_flood._Aerial_360_video_in_16K_t001_sample_pano/pano_fix.mp4" data-vrsrc="html/processed_results/video_cond/apano_0096_Church_of_the_Intercession_on_the_River_Nerl_in_spring_flood._Aerial_360_video_in_16K_t001_sample_pano/pano_fix.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-        </div>
-        <div class="text-prompt">
-            Prompt: A view of a serene landscape during sunset, with a church or temple situated on an island amidst a flooded area, surrounded by snow-covered fields.
-        </div>
-        </div><div class="row">
-        <div class="video-column">
-            <div class="cond-video-block">
-                <h2>Cond Video</h2>
-                <div class="lazyvideo"><video controls autoplay loop muted><source data-src="html/processed_results/video_cond/apano_0159_Northern_Lights__Manpupuner_Rock_Formations._8K_360_video_t001_sample_pano/cond.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-            <div class="pano-video-block">
-                <h2>Pano Video</h2>
-                <div class="video"><video playsinline autoplay loop muted><source data-src="html/processed_results/video_cond/apano_0159_Northern_Lights__Manpupuner_Rock_Formations._8K_360_video_t001_sample_pano/pano_fix.mp4" data-vrsrc="html/processed_results/video_cond/apano_0159_Northern_Lights__Manpupuner_Rock_Formations._8K_360_video_t001_sample_pano/pano_fix.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-        </div>
-        <div class="text-prompt">
-            Prompt: A view of towering snow-covered rock formations under a mesmerizing display of the Northern Lights.
-        </div>
-        </div><div class="row">
-        <div class="video-column">
-            <div class="cond-video-block">
-                <h2>Cond Video</h2>
-                <div class="lazyvideo"><video controls autoplay loop muted><source data-src="html/processed_results/video_cond/apano_0026_360__Baby_Pandas___Nat_Geo_WILD_t018_sample_pano/cond.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-            <div class="pano-video-block">
-                <h2>Pano Video</h2>
-                <div class="video"><video playsinline autoplay loop muted><source data-src="html/processed_results/video_cond/apano_0026_360__Baby_Pandas___Nat_Geo_WILD_t018_sample_pano/pano_fix.mp4" data-vrsrc="html/processed_results/video_cond/apano_0026_360__Baby_Pandas___Nat_Geo_WILD_t018_sample_pano/pano_fix.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-        </div>
-        <div class="text-prompt">
-            Prompt: A view of a panda resting on a rock amidst a forest setting.
-        </div>
-        </div><div class="row">
-        <div class="video-column">
-            <div class="cond-video-block">
-                <h2>Cond Video</h2>
-                <div class="lazyvideo"><video controls autoplay loop muted><source data-src="html/processed_results/video_cond/apano_0006_360__Antarctica___Unexpected_Snow___National_Geographic_t007_sample_pano/cond.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-            <div class="pano-video-block">
-                <h2>Pano Video</h2>
-                <div class="video"><video playsinline autoplay loop muted><source data-src="html/processed_results/video_cond/apano_0006_360__Antarctica___Unexpected_Snow___National_Geographic_t007_sample_pano/pano_fix.mp4" data-vrsrc="html/processed_results/video_cond/apano_0006_360__Antarctica___Unexpected_Snow___National_Geographic_t007_sample_pano/pano_fix.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-        </div>
-        <div class="text-prompt">
-            Prompt: A view of the rocky shore, two inflatable boats, and a person crouching near the water.
-        </div>
-        </div><div class="row">
-        <div class="video-column">
-            <div class="cond-video-block">
-                <h2>Cond Video</h2>
-                <div class="lazyvideo"><video controls autoplay loop muted><source data-src="html/processed_results/video_cond/apano_0092_360__Dive_Through_an_Oil_Rig_Ecosystem___National_Geographic_t032_sample_pano/cond.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-            <div class="pano-video-block">
-                <h2>Pano Video</h2>
-                <div class="video"><video playsinline autoplay loop muted><source data-src="html/processed_results/video_cond/apano_0092_360__Dive_Through_an_Oil_Rig_Ecosystem___National_Geographic_t032_sample_pano/pano_fix.mp4" data-vrsrc="html/processed_results/video_cond/apano_0092_360__Dive_Through_an_Oil_Rig_Ecosystem___National_Geographic_t032_sample_pano/pano_fix.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-        </div>
-        <div class="text-prompt">
-            Prompt: A view of the ASANTE boat navigating near an offshore oil rig.
-        </div>
-        </div><div class="row">
-        <div class="video-column">
-            <div class="cond-video-block">
-                <h2>Cond Video</h2>
-                <div class="lazyvideo"><video controls autoplay loop muted><source data-src="html/processed_results/video_cond/apano_0171_Swayambhunath__the_Monkey_Temple__Kathmandu__Nepal._16K_360_video._t010_sample_pano/cond.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-            <div class="pano-video-block">
-                <h2>Pano Video</h2>
-                <div class="video"><video playsinline autoplay loop muted><source data-src="html/processed_results/video_cond/apano_0171_Swayambhunath__the_Monkey_Temple__Kathmandu__Nepal._16K_360_video._t010_sample_pano/pano_fix.mp4" data-vrsrc="html/processed_results/video_cond/apano_0171_Swayambhunath__the_Monkey_Temple__Kathmandu__Nepal._16K_360_video._t010_sample_pano/pano_fix.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-        </div>
-        <div class="text-prompt">
-            Prompt: A view of the serene pathway adorned with colorful statues of Buddha, flanked by lush greenery and prayer flags, as visitors walk up the stairs.
-        </div>
-        </div><div class="row">
-        <div class="video-column">
-            <div class="cond-video-block">
-                <h2>Cond Video</h2>
-                <div class="lazyvideo"><video controls autoplay loop muted><source data-src="html/processed_results/video_cond/apano_0131_Elton_Lake__the_biggest_mineral_lake_in_Europe._8K_aerial_360_video._t015_sample_pano/cond.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-            <div class="pano-video-block">
-                <h2>Pano Video</h2>
-                <div class="video"><video playsinline autoplay loop muted><source data-src="html/processed_results/video_cond/apano_0131_Elton_Lake__the_biggest_mineral_lake_in_Europe._8K_aerial_360_video._t015_sample_pano/pano_fix.mp4" data-vrsrc="html/processed_results/video_cond/apano_0131_Elton_Lake__the_biggest_mineral_lake_in_Europe._8K_aerial_360_video._t015_sample_pano/pano_fix.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-        </div>
-        <div class="text-prompt">
-            Prompt: A view of the vast expanse of the sea meeting the horizon, with intricate patterns of land and water formations in the foreground, and a serene sky painted with hues of pink and blue above.
-        </div>
-        </div></div></section><section id="text-cond"><h1>Text-Condition Generation</h1><div class="scroll-container"><div class="row">
-        <div class="video-column">
-            <div class="pano-video-block-single">
-                <h2>Pano Video</h2>
-                <div class="video"><video playsinline autoplay loop muted><source data-src="html/processed_results/text_cond/apano_0125_Church_of_the_Intercession_on_the_River_Nerl_in_spring_flood._Aerial_360_video_in_16K_t011_sample_pano/pano_fix.mp4" data-vrsrc="html/processed_results/text_cond/apano_0125_Church_of_the_Intercession_on_the_River_Nerl_in_spring_flood._Aerial_360_video_in_16K_t011_sample_pano/pano_fix.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-        </div>
-        <div class="text-prompt">
-            Prompt: A view of a vast landscape with snow-covered patches amidst water bodies, surrounded by trees, and a distant cityscape on the horizon.
-        </div>
-        </div><div class="row">
-        <div class="video-column">
-            <div class="pano-video-block-single">
-                <h2>Pano Video</h2>
-                <div class="video"><video playsinline autoplay loop muted><source data-src="html/processed_results/text_cond/apano_0035_360__Antarctica___Journey_Through_The_Ice___National_Geographic_t003_sample_pano/pano_fix.mp4" data-vrsrc="html/processed_results/text_cond/apano_0035_360__Antarctica___Journey_Through_The_Ice___National_Geographic_t003_sample_pano/pano_fix.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-        </div>
-        <div class="text-prompt">
-            Prompt: A view of a vast icy expanse under a cloudy sky. Overlayed text reads: 'ONLY A FEW SPECIALIZED SHIPS CAN CUT THEIR WAY THROUGH THE ICE.'
-        </div>
-        </div><div class="row">
-        <div class="video-column">
-            <div class="pano-video-block-single">
-                <h2>Pano Video</h2>
-                <div class="video"><video playsinline autoplay loop muted><source data-src="html/processed_results/text_cond/apano_0055_360__Bryce_Canyon___National_Geographic_t001_sample_pano/pano_fix.mp4" data-vrsrc="html/processed_results/text_cond/apano_0055_360__Bryce_Canyon___National_Geographic_t001_sample_pano/pano_fix.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-        </div>
-        <div class="text-prompt">
-            Prompt: A view of Bryce Canyon National Park, showcasing its unique hoodoos and a rapidly changing landscape.
-        </div>
-        </div><div class="row">
-        <div class="video-column">
-            <div class="pano-video-block-single">
-                <h2>Pano Video</h2>
-                <div class="video"><video playsinline autoplay loop muted><source data-src="html/processed_results/text_cond/apano_0132_Underwater_Wonders__Red_Sea__Egypt._8K_360_video_t044_sample_pano/pano_fix.mp4" data-vrsrc="html/processed_results/text_cond/apano_0132_Underwater_Wonders__Red_Sea__Egypt._8K_360_video_t044_sample_pano/pano_fix.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-        </div>
-        <div class="text-prompt">
-            Prompt: A view of the vibrant coral reefs bathed in sunlight, teeming with marine life, and the clear blue waters above.
-        </div>
-        </div><div class="row">
-        <div class="video-column">
-            <div class="pano-video-block-single">
-                <h2>Pano Video</h2>
-                <div class="video"><video playsinline autoplay loop muted><source data-src="html/processed_results/text_cond/apano_0185_Lofoten_Islands__Norway._Teaser._8K_360_video._t006_sample_pano/pano_fix.mp4" data-vrsrc="html/processed_results/text_cond/apano_0185_Lofoten_Islands__Norway._Teaser._8K_360_video._t006_sample_pano/pano_fix.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-        </div>
-        <div class="text-prompt">
-            Prompt: A view of snow-covered mountains, a serene lake, a winding road, and a cluster of houses nestled amidst nature.
-        </div>
-        </div><div class="row">
-        <div class="video-column">
-            <div class="pano-video-block-single">
-                <h2>Pano Video</h2>
-                <div class="video"><video playsinline autoplay loop muted><source data-src="html/processed_results/text_cond/apano_0076_360__Climbing_Giants___National_Geographic_t013_sample_pano/pano_fix.mp4" data-vrsrc="html/processed_results/text_cond/apano_0076_360__Climbing_Giants___National_Geographic_t013_sample_pano/pano_fix.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-        </div>
-        <div class="text-prompt">
-            Prompt: A view of the sun setting over a dense forest, with the sky painted in hues of orange, blue, and purple.
-        </div>
-        </div><div class="row">
-        <div class="video-column">
-            <div class="pano-video-block-single">
-                <h2>Pano Video</h2>
-                <div class="video"><video playsinline autoplay loop muted><source data-src="html/processed_results/text_cond/apano_0082_360__Dive_Through_an_Oil_Rig_Ecosystem___National_Geographic_t002_sample_pano/pano_fix.mp4" data-vrsrc="html/processed_results/text_cond/apano_0082_360__Dive_Through_an_Oil_Rig_Ecosystem___National_Geographic_t002_sample_pano/pano_fix.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-        </div>
-        <div class="text-prompt">
-            Prompt: A view of the vast blue ocean under a clear sky. On the right side, there's a boat named 'ASANTE' with two individuals onboard. One person is seated on the boat, and the other is in the cabin. There's a caption that reads, '8 MILES OFF SHORE SITS A LINE OF AGING OIL RIGS'.
-        </div>
-        </div><div class="row">
-        <div class="video-column">
-            <div class="pano-video-block-single">
-                <h2>Pano Video</h2>
-                <div class="video"><video playsinline autoplay loop muted><source data-src="html/processed_results/text_cond/apano_0187_Natural_Wonders_in_Bali._Relaxation_VR_video_in_16K_t002_sample_pano/pano_fix.mp4" data-vrsrc="html/processed_results/text_cond/apano_0187_Natural_Wonders_in_Bali._Relaxation_VR_video_in_16K_t002_sample_pano/pano_fix.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-        </div>
-        <div class="text-prompt">
-            Prompt: A view of the multi-tiered pagoda surrounded by lush greenery, with a serene body of water in the foreground and a picturesque sunset in the background.
-        </div>
-        </div><div class="row">
-        <div class="video-column">
-            <div class="pano-video-block-single">
-                <h2>Pano Video</h2>
-                <div class="video"><video playsinline autoplay loop muted><source data-src="html/processed_results/text_cond/apano_0058_360__Bryce_Canyon___National_Geographic_t003_sample_pano/pano_fix.mp4" data-vrsrc="html/processed_results/text_cond/apano_0058_360__Bryce_Canyon___National_Geographic_t003_sample_pano/pano_fix.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-        </div>
-        <div class="text-prompt">
-            Prompt: A view of the majestic rock formations, dense forests, and vast open land under a clear blue sky.
-        </div>
-        </div></div></section><section id="ours-vs-mvdiff"><h1>Ours vs. MVDiffusion</h1><div class="scroll-container"><div class="row">
-        <div class="video-column">
-            <div class="cond-video-block">
-                <h2>Cond Frame</h2>
-                <img class="lazy-loaded-image lazy" data-src="html/comp_to_mvdiffusion/pano/11/cond.png">
-            </div>
-            <div class="pano-video-block-half-cond">
-                <h2>Ours</h2>
-                <div class="video"><img  class="lazy-loaded-image lazy" data-src="html/comp_to_mvdiffusion/pano/11/pano_fix.png" data-vrsrc="html/comp_to_mvdiffusion/pano/11/pano_fix.png"></div>
-            </div>
-            <div class="pano-video-block-half-cond">
-                <h2>MVDiffusion</h2>
-                <div class="video"><img  class="lazy-loaded-image lazy" data-src="html/comp_to_mvdiffusion/pano/11/pano_mvd.png" data-vrsrc="html/comp_to_mvdiffusion/pano/11/pano_mvd.png"></div>
-            </div>
-
-        </div>
-        </div><div class="row">
-        <div class="video-column">
-            <div class="cond-video-block">
-                <h2>Cond Frame</h2>
-                <img class="lazy-loaded-image lazy" data-src="html/comp_to_mvdiffusion/pano/12/cond.png">
-            </div>
-            <div class="pano-video-block-half-cond">
-                <h2>Ours</h2>
-                <div class="video"><img  class="lazy-loaded-image lazy" data-src="html/comp_to_mvdiffusion/pano/12/pano_fix.png" data-vrsrc="html/comp_to_mvdiffusion/pano/12/pano_fix.png"></div>
-            </div>
-            <div class="pano-video-block-half-cond">
-                <h2>MVDiffusion</h2>
-                <div class="video"><img  class="lazy-loaded-image lazy" data-src="html/comp_to_mvdiffusion/pano/12/pano_mvd.png" data-vrsrc="html/comp_to_mvdiffusion/pano/12/pano_mvd.png"></div>
-            </div>
-
-        </div>
-        </div><div class="row">
-        <div class="video-column">
-            <div class="cond-video-block">
-                <h2>Cond Frame</h2>
-                <img class="lazy-loaded-image lazy" data-src="html/comp_to_mvdiffusion/pano/5/cond.png">
-            </div>
-            <div class="pano-video-block-half-cond">
-                <h2>Ours</h2>
-                <div class="video"><img  class="lazy-loaded-image lazy" data-src="html/comp_to_mvdiffusion/pano/5/pano_fix.png" data-vrsrc="html/comp_to_mvdiffusion/pano/5/pano_fix.png"></div>
-            </div>
-            <div class="pano-video-block-half-cond">
-                <h2>MVDiffusion</h2>
-                <div class="video"><img  class="lazy-loaded-image lazy" data-src="html/comp_to_mvdiffusion/pano/5/pano_mvd.png" data-vrsrc="html/comp_to_mvdiffusion/pano/5/pano_mvd.png"></div>
-            </div>
-
-        </div>
-        </div><div class="row">
-        <div class="video-column">
-            <div class="cond-video-block">
-                <h2>Cond Frame</h2>
-                <img class="lazy-loaded-image lazy" data-src="html/comp_to_mvdiffusion/pano/28/cond.png">
-            </div>
-            <div class="pano-video-block-half-cond">
-                <h2>Ours</h2>
-                <div class="video"><img  class="lazy-loaded-image lazy" data-src="html/comp_to_mvdiffusion/pano/28/pano_fix.png" data-vrsrc="html/comp_to_mvdiffusion/pano/28/pano_fix.png"></div>
-            </div>
-            <div class="pano-video-block-half-cond">
-                <h2>MVDiffusion</h2>
-                <div class="video"><img  class="lazy-loaded-image lazy" data-src="html/comp_to_mvdiffusion/pano/28/pano_mvd.png" data-vrsrc="html/comp_to_mvdiffusion/pano/28/pano_mvd.png"></div>
-            </div>
-
-        </div>
-        </div><div class="row">
-        <div class="video-column">
-            <div class="cond-video-block">
-                <h2>Cond Frame</h2>
-                <img class="lazy-loaded-image lazy" data-src="html/comp_to_mvdiffusion/pano/33/cond.png">
-            </div>
-            <div class="pano-video-block-half-cond">
-                <h2>Ours</h2>
-                <div class="video"><img  class="lazy-loaded-image lazy" data-src="html/comp_to_mvdiffusion/pano/33/pano_fix.png" data-vrsrc="html/comp_to_mvdiffusion/pano/33/pano_fix.png"></div>
-            </div>
-            <div class="pano-video-block-half-cond">
-                <h2>MVDiffusion</h2>
-                <div class="video"><img  class="lazy-loaded-image lazy" data-src="html/comp_to_mvdiffusion/pano/33/pano_mvd.png" data-vrsrc="html/comp_to_mvdiffusion/pano/33/pano_mvd.png"></div>
-            </div>
-
-        </div>
-        </div><div class="row">
-        <div class="video-column">
-            <div class="cond-video-block">
-                <h2>Cond Frame</h2>
-                <img class="lazy-loaded-image lazy" data-src="html/comp_to_mvdiffusion/pano/34/cond.png">
-            </div>
-            <div class="pano-video-block-half-cond">
-                <h2>Ours</h2>
-                <div class="video"><img  class="lazy-loaded-image lazy" data-src="html/comp_to_mvdiffusion/pano/34/pano_fix.png" data-vrsrc="html/comp_to_mvdiffusion/pano/34/pano_fix.png"></div>
-            </div>
-            <div class="pano-video-block-half-cond">
-                <h2>MVDiffusion</h2>
-                <div class="video"><img  class="lazy-loaded-image lazy" data-src="html/comp_to_mvdiffusion/pano/34/pano_mvd.png" data-vrsrc="html/comp_to_mvdiffusion/pano/34/pano_mvd.png"></div>
-            </div>
-
-        </div>
-        </div><div class="row">
-        <div class="video-column">
-            <div class="cond-video-block">
-                <h2>Cond Frame</h2>
-                <img class="lazy-loaded-image lazy" data-src="html/comp_to_mvdiffusion/pano/43/cond.png">
-            </div>
-            <div class="pano-video-block-half-cond">
-                <h2>Ours</h2>
-                <div class="video"><img  class="lazy-loaded-image lazy" data-src="html/comp_to_mvdiffusion/pano/43/pano_fix.png" data-vrsrc="html/comp_to_mvdiffusion/pano/43/pano_fix.png"></div>
-            </div>
-            <div class="pano-video-block-half-cond">
-                <h2>MVDiffusion</h2>
-                <div class="video"><img  class="lazy-loaded-image lazy" data-src="html/comp_to_mvdiffusion/pano/43/pano_mvd.png" data-vrsrc="html/comp_to_mvdiffusion/pano/43/pano_mvd.png"></div>
-            </div>
-
-        </div>
-        </div><div class="row">
-        <div class="video-column">
-            <div class="cond-video-block">
-                <h2>Cond Frame</h2>
-                <img class="lazy-loaded-image lazy" data-src="html/comp_to_mvdiffusion/pano/47/cond.png">
-            </div>
-            <div class="pano-video-block-half-cond">
-                <h2>Ours</h2>
-                <div class="video"><img  class="lazy-loaded-image lazy" data-src="html/comp_to_mvdiffusion/pano/47/pano_fix.png" data-vrsrc="html/comp_to_mvdiffusion/pano/47/pano_fix.png"></div>
-            </div>
-            <div class="pano-video-block-half-cond">
-                <h2>MVDiffusion</h2>
-                <div class="video"><img  class="lazy-loaded-image lazy" data-src="html/comp_to_mvdiffusion/pano/47/pano_mvd.png" data-vrsrc="html/comp_to_mvdiffusion/pano/47/pano_mvd.png"></div>
-            </div>
-
-        </div>
-        </div><div class="row">
-        <div class="video-column">
-            <div class="cond-video-block">
-                <h2>Cond Frame</h2>
-                <img class="lazy-loaded-image lazy" data-src="html/comp_to_mvdiffusion/pano/53/cond.png">
-            </div>
-            <div class="pano-video-block-half-cond">
-                <h2>Ours</h2>
-                <div class="video"><img  class="lazy-loaded-image lazy" data-src="html/comp_to_mvdiffusion/pano/53/pano_fix.png" data-vrsrc="html/comp_to_mvdiffusion/pano/53/pano_fix.png"></div>
-            </div>
-            <div class="pano-video-block-half-cond">
-                <h2>MVDiffusion</h2>
-                <div class="video"><img  class="lazy-loaded-image lazy" data-src="html/comp_to_mvdiffusion/pano/53/pano_mvd.png" data-vrsrc="html/comp_to_mvdiffusion/pano/53/pano_mvd.png"></div>
-            </div>
-
-        </div>
-        </div></div></section><section id="swap-prompt"><h1>Video-conditional with Different Prompts</h1><div class="scroll-container"><div class="row">
-        <div class="video-column">
-            <div class="cond-video-block">
-                <h2>Cond Video</h2>
-                <div class="lazyvideo"><video controls autoplay loop muted><source data-src="html/processed_results/swap_prompt/apano_0004_blue_ballon_street_sample_pano/cond.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-            <div class="pano-video-block">
-                <h2>Pano Video</h2>
-                <div class="video"><video playsinline autoplay loop muted><source data-src="html/processed_results/swap_prompt/apano_0004_blue_ballon_street_sample_pano/pano.mp4" data-vrsrc="html/processed_results/swap_prompt/apano_0004_blue_ballon_street_sample_pano/pano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-        </div>
-        <div class="text-prompt">
-            Prompt: A view of an abandoned old European street.
-        </div>
-        </div><div class="row">
-        <div class="video-column">
-            <div class="cond-video-block">
-                <h2>Cond Video</h2>
-                <div class="lazyvideo"><video controls autoplay loop muted><source data-src="html/processed_results/swap_prompt/apano_0001_blue_ballon_castle_sample_pano/cond.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-            <div class="pano-video-block">
-                <h2>Pano Video</h2>
-                <div class="video"><video playsinline autoplay loop muted><source data-src="html/processed_results/swap_prompt/apano_0001_blue_ballon_castle_sample_pano/pano.mp4" data-vrsrc="html/processed_results/swap_prompt/apano_0001_blue_ballon_castle_sample_pano/pano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-        </div>
-        <div class="text-prompt">
-            Prompt: A view of a vast towering castle.
-        </div>
-        </div><div class="row">
-        <div class="video-column">
-            <div class="cond-video-block">
-                <h2>Cond Video</h2>
-                <div class="lazyvideo"><video controls autoplay loop muted><source data-src="html/processed_results/swap_prompt/apano_0000_blue_ballon_ballons_sample_pano/cond.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-            <div class="pano-video-block">
-                <h2>Pano Video</h2>
-                <div class="video"><video playsinline autoplay loop muted><source data-src="html/processed_results/swap_prompt/apano_0000_blue_ballon_ballons_sample_pano/pano.mp4" data-vrsrc="html/processed_results/swap_prompt/apano_0000_blue_ballon_ballons_sample_pano/pano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-        </div>
-        <div class="text-prompt">
-            Prompt: A view of dozens of balloons lifting into the sky.
-        </div>
-        </div><div class="row">
-        <div class="video-column">
-            <div class="cond-video-block">
-                <h2>Cond Video</h2>
-                <div class="lazyvideo"><video controls autoplay loop muted><source data-src="html/processed_results/swap_prompt/apano_0003_blue_ballon_seashore_sample_pano/cond.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-            <div class="pano-video-block">
-                <h2>Pano Video</h2>
-                <div class="video"><video playsinline autoplay loop muted><source data-src="html/processed_results/swap_prompt/apano_0003_blue_ballon_seashore_sample_pano/pano.mp4" data-vrsrc="html/processed_results/swap_prompt/apano_0003_blue_ballon_seashore_sample_pano/pano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-            </div>
-        </div>
-        <div class="text-prompt">
-            Prompt: A view of the seashore with the sea coming up against a cliff.
-        </div>
-        </div></div></section>
-    <footer>
-        <p>
-            This website is constructed in part using code provided by <a
-                href="https://akaneqwq.github.io/360DVD/">360DVD</a>. Thanks for their effort.
-        </p>
-    </footer>
-
-
-    </body>
-    </html>
-    
+</html>
