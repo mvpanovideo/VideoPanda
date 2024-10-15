@@ -144,6 +144,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const openVrElem = document.createElement("div");
             openVrElem.ariaLabel = "open-vr";
+            openVrElem.innerHTML += "Click here to open in VR viewer"
             openVrElem.classList.add("open-vr");
             elem.append(openVrElem);
 
