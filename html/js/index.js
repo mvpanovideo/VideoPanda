@@ -164,15 +164,15 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    const text = isWx()
-        ? "Open in browser for better experience"
-        : "Click any video to open VR preview";
-    const toastElem = document.createElement("div");
-    toastElem.id = "toast";
-    document.body.append(toastElem);
-    toastElem.innerHTML = text;
+    // const text = isWx()
+    //     ? "Open in browser for better experience"
+    //     : "Click any video to open VR preview";
+    // const toastElem = document.createElement("div");
+    // toastElem.id = "toast";
+    // document.body.append(toastElem);
+    // toastElem.innerHTML = text;
 
-    toastElem.classList.add("showToast");
+    // toastElem.classList.add("showToast");
     // setTimeout(() => {
     //     toastElem.classList.remove("showToast");
     //     toastElem.classList.add("hideToast");
