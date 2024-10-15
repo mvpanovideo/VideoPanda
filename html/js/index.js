@@ -146,7 +146,7 @@ document.addEventListener("DOMContentLoaded", function () {
             openVrElem.ariaLabel = "open-vr";
             openVrElem.innerHTML += "Click here to open in VR viewer"
             openVrElem.classList.add("open-vr");
-            elem.append(openVrElem);
+            elem.parentElement.append(openVrElem);
 
             const ua = navigator.userAgent;
             if (isWx()) continue;

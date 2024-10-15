@@ -183,17 +183,17 @@ section {
 .video {
     aspect-ratio: 2 / 1;
 }
-.video > .open-vr {
+.open-vr {
     font-family: 'Roboto', sans-serif;
     cursor: pointer;
-    position: absolute;
-    top: 0;
+    /* position: absolute; */
+    /* top: 0;
     right: 0;
     bottom: 0;
-    left: 0;
-    height: min-content;
-    width: fit-content;
-    font-size: x-large;
+    left: 0; */
+    /* height: min-content;
+    width: fit-content; */
+    font-size: large;
     color:#007BFF;
     background-color: #f9f9f9;
 }
