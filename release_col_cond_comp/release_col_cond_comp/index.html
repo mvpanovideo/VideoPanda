@@ -31,6 +31,20 @@
                 border: none;
                 cursor: pointer;
             }
+            .description {
+                margin: auto;
+                width: 80%;
+                padding: 20px;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                margin-bottom: 20px;
+                padding-bottom: 15px;
+                background-color: white;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
             .generation {
                 display: flex;
                 flex-direction: column;
@@ -70,6 +84,20 @@
     <body>
         <h1>VideoPanda: OOD Video-conditional Comparison on SORA/Runway/Luma videos</h1>
 
+        <div class="description">
+            <p>Here we show qualitative comparisons from our video-conditional OOD evaluations using the 50 videos we curate from publicly available AI generated videos and they can feature cases with non-standard FOV and elevation.
+Even with our current model, it is able to handle camera variation to some extent due to a few natural elevation changes in the training videos. <br><br>
+
+However WEB360 contains very limited elevation changes in the training dataset, usually showing smooth landscape fly-overs. 
+We hence collect a new dataset of panorama videos and show that it can enhance the model's understanding of variations in elevation.
+Furthermore, similarly to the text-conditional setting, we also trained VideoPanda using the more powerful CogVideoX-2B base model which boosts the visual quality and enhances the handling of OOD content further.<br><br>
+
+In particular, on the <b style="color: blue;">left column</b> is the result from the model in our paper <b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b>, the <b style="color: blue;">middle column</b> is the same model but trained with the new data instead of web360 <b style="color: blue;">VideoPanda (VideoLDM + New Data)</b> and the <b style="color: blue;">right column</b> is further switching the base model to CogVideoX-2B <b style="color: blue;">VideoPanda (CogVideoX-2B + NewData)</b>.<br><br>
+
+The additional data helps the understanding of different elevations as can be seen in for example (6) “A view of the coastal town, the historic stone structure with a dome, the terraced buildings, and the vast blue sea.” and (8) “A view of a mountain biker riding down a dirt trail surrounded by trees.” show extreme examples of non-standard elevation and changing elevation. The more powerful CogVideoX-2B base model boosts the visual quality and enhances the handling of OOD content further.
+</p>
+        </div>
+
         <div id="pagination-top" class="pagination-container">
             <button class="pagination-btn prev-btn">Previous</button>
             <select class="page-select"></select>
@@ -82,980 +110,1120 @@
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360) scr</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="56972231/61_0_samplepanopost.mp4" data-vrsrc="56972231/61_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="85858/56_1_samplepanopost.mp4" data-vrsrc="85858/56_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + New Data)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="48073703/61_0_samplepanopost.mp4" data-vrsrc="48073703/61_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="74510564/56_1_samplepanopost.mp4" data-vrsrc="74510564/56_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + NewData)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="37607595/61_0_samplepanopost.mp4" data-vrsrc="37607595/61_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="12418577/56_1_samplepanopost.mp4" data-vrsrc="12418577/56_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
             </div>
             
-            <div class="video-title">0) A Japanese animated film of a young woman standing on a ship and looking back at camera</div>
+            <div class="video-title">0) An astronaut running through an alley in Rio de Janeiro</div>
         </div>
         
         <div class="generation">
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360) scr</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="56972231/59_0_samplepanopost.mp4" data-vrsrc="56972231/59_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="85858/28_0_samplepanopost.mp4" data-vrsrc="85858/28_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + New Data)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="48073703/59_0_samplepanopost.mp4" data-vrsrc="48073703/59_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="74510564/28_0_samplepanopost.mp4" data-vrsrc="74510564/28_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + NewData)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="37607595/59_0_samplepanopost.mp4" data-vrsrc="37607595/59_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="12418577/28_0_samplepanopost.mp4" data-vrsrc="12418577/28_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
             </div>
             
-            <div class="video-title">1) A FPV drone shot through a castle on a cliff</div>
+            <div class="video-title">1) A view of a futuristic cityscape with neon signs, a robotic figure in the foreground, and a vehicle on the wet road.</div>
         </div>
         
         <div class="generation">
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360) scr</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="56972231/28_0_samplepanopost.mp4" data-vrsrc="56972231/28_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="85858/80_0_samplepanopost.mp4" data-vrsrc="85858/80_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + New Data)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="48073703/28_0_samplepanopost.mp4" data-vrsrc="48073703/28_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="74510564/80_0_samplepanopost.mp4" data-vrsrc="74510564/80_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + NewData)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="37607595/28_0_samplepanopost.mp4" data-vrsrc="37607595/28_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="12418577/80_0_samplepanopost.mp4" data-vrsrc="12418577/80_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
             </div>
             
-            <div class="video-title">2) A view of a futuristic cityscape with neon signs, a robotic figure in the foreground, and a vehicle on the wet road.</div>
+            <div class="video-title">2) An oceanic path opens as towering waves rise, revealing a serene beach bathed in golden sunlight</div>
         </div>
         
         <div class="generation">
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360) scr</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="56972231/3_0_samplepanopost.mp4" data-vrsrc="56972231/3_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="85858/75_1_samplepanopost.mp4" data-vrsrc="85858/75_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + New Data)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="48073703/3_0_samplepanopost.mp4" data-vrsrc="48073703/3_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="74510564/75_1_samplepanopost.mp4" data-vrsrc="74510564/75_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + NewData)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="37607595/3_0_samplepanopost.mp4" data-vrsrc="37607595/3_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="12418577/75_1_samplepanopost.mp4" data-vrsrc="12418577/75_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
             </div>
             
-            <div class="video-title">3) A view of a winding road surrounded by lush green trees, with a red car driving on it.</div>
+            <div class="video-title">3) An animated film, hyperspeed drone FPV POV racing above the dense forest, bold inky outlines, high-contrast lighting. Whimsical, dreamlike.</div>
         </div>
         
         <div class="generation">
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360) scr</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="56972231/80_0_samplepanopost.mp4" data-vrsrc="56972231/80_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="85858/29_0_samplepanopost.mp4" data-vrsrc="85858/29_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + New Data)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="48073703/80_0_samplepanopost.mp4" data-vrsrc="48073703/80_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="74510564/29_0_samplepanopost.mp4" data-vrsrc="74510564/29_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + NewData)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="37607595/80_0_samplepanopost.mp4" data-vrsrc="37607595/80_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="12418577/29_0_samplepanopost.mp4" data-vrsrc="12418577/29_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
             </div>
             
-            <div class="video-title">4) An oceanic path opens as towering waves rise, revealing a serene beach bathed in golden sunlight</div>
+            <div class="video-title">4) A view of a cluttered workshop filled with various electronic devices, tools, and a humanoid robot with glowing eyes.</div>
         </div>
         
         <div class="generation">
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360) scr</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="56972231/29_0_samplepanopost.mp4" data-vrsrc="56972231/29_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="85858/61_0_samplepanopost.mp4" data-vrsrc="85858/61_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + New Data)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="48073703/29_0_samplepanopost.mp4" data-vrsrc="48073703/29_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="74510564/61_0_samplepanopost.mp4" data-vrsrc="74510564/61_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + NewData)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="37607595/29_0_samplepanopost.mp4" data-vrsrc="37607595/29_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="12418577/61_0_samplepanopost.mp4" data-vrsrc="12418577/61_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
             </div>
             
-            <div class="video-title">5) A view of a cluttered workshop filled with various electronic devices, tools, and a humanoid robot with glowing eyes.</div>
+            <div class="video-title">5) A Japanese animated film of a young woman standing on a ship and looking back at camera</div>
         </div>
         
         <div class="generation">
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360) scr</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="56972231/11_0_samplepanopost.mp4" data-vrsrc="56972231/11_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="85858/3_0_samplepanopost.mp4" data-vrsrc="85858/3_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + New Data)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="48073703/11_0_samplepanopost.mp4" data-vrsrc="48073703/11_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="74510564/3_0_samplepanopost.mp4" data-vrsrc="74510564/3_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + NewData)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="37607595/11_0_samplepanopost.mp4" data-vrsrc="37607595/11_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="12418577/3_0_samplepanopost.mp4" data-vrsrc="12418577/3_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
             </div>
             
-            <div class="video-title">6) A view of the coastal town, the historic stone structure with a dome, the terraced buildings, and the vast blue sea.</div>
+            <div class="video-title">6) A view of a winding road surrounded by lush green trees, with a red car driving on it.</div>
         </div>
         
         <div class="generation">
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360) scr</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="56972231/14_0_samplepanopost.mp4" data-vrsrc="56972231/14_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="85858/11_0_samplepanopost.mp4" data-vrsrc="85858/11_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + New Data)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="48073703/14_0_samplepanopost.mp4" data-vrsrc="48073703/14_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="74510564/11_0_samplepanopost.mp4" data-vrsrc="74510564/11_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + NewData)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="37607595/14_0_samplepanopost.mp4" data-vrsrc="37607595/14_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="12418577/11_0_samplepanopost.mp4" data-vrsrc="12418577/11_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
             </div>
             
-            <div class="video-title">7) A view of a rugged off-road vehicle driving on a dirt road surrounded by tall pine trees, with a mountainous backdrop under a clear blue sky.</div>
+            <div class="video-title">7) A view of the coastal town, the historic stone structure with a dome, the terraced buildings, and the vast blue sea.</div>
         </div>
         
         <div class="generation">
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360) scr</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="56972231/12_0_samplepanopost.mp4" data-vrsrc="56972231/12_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="85858/14_0_samplepanopost.mp4" data-vrsrc="85858/14_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + New Data)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="48073703/12_0_samplepanopost.mp4" data-vrsrc="48073703/12_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="74510564/14_0_samplepanopost.mp4" data-vrsrc="74510564/14_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + NewData)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="37607595/12_0_samplepanopost.mp4" data-vrsrc="37607595/12_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="12418577/14_0_samplepanopost.mp4" data-vrsrc="12418577/14_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
             </div>
             
-            <div class="video-title">8) A view of a mountain biker riding down a dirt trail surrounded by trees.</div>
+            <div class="video-title">8) A view of a rugged off-road vehicle driving on a dirt road surrounded by tall pine trees, with a mountainous backdrop under a clear blue sky.</div>
         </div>
         
         <div class="generation">
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360) scr</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="56972231/21_0_samplepanopost.mp4" data-vrsrc="56972231/21_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="85858/60_0_samplepanopost.mp4" data-vrsrc="85858/60_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + New Data)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="48073703/21_0_samplepanopost.mp4" data-vrsrc="48073703/21_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="74510564/60_0_samplepanopost.mp4" data-vrsrc="74510564/60_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + NewData)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="37607595/21_0_samplepanopost.mp4" data-vrsrc="37607595/21_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="12418577/60_0_samplepanopost.mp4" data-vrsrc="12418577/60_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
             </div>
             
-            <div class="video-title">9) A view of a grand hall with arches, a large wave inside, and a few silhouettes of people observing.</div>
+            <div class="video-title">9) Dragon-toucan walking through the Serengeti</div>
         </div>
         
         <div class="generation">
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360) scr</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="56972231/87_0_samplepanopost.mp4" data-vrsrc="56972231/87_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="85858/15_1_samplepanopost.mp4" data-vrsrc="85858/15_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + New Data)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="48073703/87_0_samplepanopost.mp4" data-vrsrc="48073703/87_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="74510564/15_1_samplepanopost.mp4" data-vrsrc="74510564/15_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + NewData)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="37607595/87_0_samplepanopost.mp4" data-vrsrc="37607595/87_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="12418577/15_1_samplepanopost.mp4" data-vrsrc="12418577/15_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
             </div>
             
-            <div class="video-title">10) A dreamlike and disorienting hyperlapse racing through 1980s New York City.</div>
+            <div class="video-title">10) A view of a glass with a red beverage and ice cubes, placed on a wooden table, with a potted plant in the background.</div>
         </div>
         
         <div class="generation">
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360) scr</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="56972231/24_0_samplepanopost.mp4" data-vrsrc="56972231/24_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="85858/9_1_samplepanopost.mp4" data-vrsrc="85858/9_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + New Data)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="48073703/24_0_samplepanopost.mp4" data-vrsrc="48073703/24_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="74510564/9_1_samplepanopost.mp4" data-vrsrc="74510564/9_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + NewData)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="37607595/24_0_samplepanopost.mp4" data-vrsrc="37607595/24_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="12418577/9_1_samplepanopost.mp4" data-vrsrc="12418577/9_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
             </div>
             
-            <div class="video-title">11) A view of a snow-covered cityscape with modern buildings, a winding river, cherry blossom trees in full bloom, and a clear blue sky.</div>
+            <div class="video-title">11) A view of a bustling street with colorful buildings, parked vehicles, and pedestrians. In the foreground, a robot with a white shirt and blue jeans stands facing the viewer.</div>
         </div>
         
         <div class="generation">
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360) scr</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="56972231/25_0_samplepanopost.mp4" data-vrsrc="56972231/25_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="85858/10_0_samplepanopost.mp4" data-vrsrc="85858/10_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + New Data)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="48073703/25_0_samplepanopost.mp4" data-vrsrc="48073703/25_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="74510564/10_0_samplepanopost.mp4" data-vrsrc="74510564/10_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + NewData)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="37607595/25_0_samplepanopost.mp4" data-vrsrc="37607595/25_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="12418577/10_0_samplepanopost.mp4" data-vrsrc="12418577/10_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
             </div>
             
-            <div class="video-title">12) A view of towering granite cliffs, a cascading waterfall, a dense forest, and a river flowing through the valley.</div>
+            <div class="video-title">12) A view of the ancient Colosseum in Rome, with a modern drone captured in mid-flight above its arena.</div>
         </div>
         
         <div class="generation">
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360) scr</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="56972231/38_0_samplepanopost.mp4" data-vrsrc="56972231/38_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="85858/21_0_samplepanopost.mp4" data-vrsrc="85858/21_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + New Data)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="48073703/38_0_samplepanopost.mp4" data-vrsrc="48073703/38_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="74510564/21_0_samplepanopost.mp4" data-vrsrc="74510564/21_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + NewData)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="37607595/38_0_samplepanopost.mp4" data-vrsrc="37607595/38_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="12418577/21_0_samplepanopost.mp4" data-vrsrc="12418577/21_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
             </div>
             
-            <div class="video-title">13) A man made of rocks walking in the forest, full-body shot</div>
+            <div class="video-title">13) A view of a grand hall with arches, a large wave inside, and a few silhouettes of people observing.</div>
         </div>
         
         <div class="generation">
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360) scr</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="56972231/41_1_samplepanopost.mp4" data-vrsrc="56972231/41_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="85858/87_1_samplepanopost.mp4" data-vrsrc="85858/87_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + New Data)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="48073703/41_1_samplepanopost.mp4" data-vrsrc="48073703/41_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="74510564/87_1_samplepanopost.mp4" data-vrsrc="74510564/87_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + NewData)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="37607595/41_1_samplepanopost.mp4" data-vrsrc="37607595/41_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="12418577/87_1_samplepanopost.mp4" data-vrsrc="12418577/87_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
             </div>
             
-            <div class="video-title">14) Aerial shot of the ocean. a maelstrom forms in the water swirling around until it reveals the fiery depths below</div>
+            <div class="video-title">14) A dreamlike and disorienting hyperlapse racing through 1980s New York City.</div>
         </div>
         
         <div class="generation">
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360) scr</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="56972231/42_0_samplepanopost.mp4" data-vrsrc="56972231/42_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="85858/24_0_samplepanopost.mp4" data-vrsrc="85858/24_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + New Data)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="48073703/42_0_samplepanopost.mp4" data-vrsrc="48073703/42_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="74510564/24_0_samplepanopost.mp4" data-vrsrc="74510564/24_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + NewData)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="37607595/42_0_samplepanopost.mp4" data-vrsrc="37607595/42_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="12418577/24_0_samplepanopost.mp4" data-vrsrc="12418577/24_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
             </div>
             
-            <div class="video-title">15) Handheld tracking shot, following a red ballon floating above the ground in abandon street</div>
+            <div class="video-title">15) A view of a snow-covered cityscape with modern buildings, a winding river, cherry blossom trees in full bloom, and a clear blue sky.</div>
         </div>
         
         <div class="generation">
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360) scr</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="56972231/66_0_samplepanopost.mp4" data-vrsrc="56972231/66_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="85858/25_0_samplepanopost.mp4" data-vrsrc="85858/25_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + New Data)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="48073703/66_0_samplepanopost.mp4" data-vrsrc="48073703/66_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="74510564/25_0_samplepanopost.mp4" data-vrsrc="74510564/25_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + NewData)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="37607595/66_0_samplepanopost.mp4" data-vrsrc="37607595/66_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="12418577/25_0_samplepanopost.mp4" data-vrsrc="12418577/25_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
             </div>
             
-            <div class="video-title">16) A medieval sailboat sailing on the sea, foggy nights, bright moonlight, eerie atmosphere</div>
+            <div class="video-title">16) A view of towering granite cliffs, a cascading waterfall, a dense forest, and a river flowing through the valley.</div>
         </div>
         
         <div class="generation">
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360) scr</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="56972231/62_0_samplepanopost.mp4" data-vrsrc="56972231/62_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="85858/38_0_samplepanopost.mp4" data-vrsrc="85858/38_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + New Data)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="48073703/62_0_samplepanopost.mp4" data-vrsrc="48073703/62_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="74510564/38_0_samplepanopost.mp4" data-vrsrc="74510564/38_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + NewData)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="37607595/62_0_samplepanopost.mp4" data-vrsrc="37607595/62_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="12418577/38_0_samplepanopost.mp4" data-vrsrc="12418577/38_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
             </div>
             
-            <div class="video-title">17) A first-person POV shot rapidly flies through open doors to reveal a surreal waterfall cascading in the middle of the living room</div>
+            <div class="video-title">17) A man made of rocks walking in the forest, full-body shot</div>
         </div>
         
         <div class="generation">
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360) scr</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="56972231/64_0_samplepanopost.mp4" data-vrsrc="56972231/64_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="85858/86_0_samplepanopost.mp4" data-vrsrc="85858/86_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + New Data)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="48073703/64_0_samplepanopost.mp4" data-vrsrc="48073703/64_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="74510564/86_0_samplepanopost.mp4" data-vrsrc="74510564/86_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + NewData)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="37607595/64_0_samplepanopost.mp4" data-vrsrc="37607595/64_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="12418577/86_0_samplepanopost.mp4" data-vrsrc="12418577/86_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
             </div>
             
-            <div class="video-title">18) A wide symmetrical shot of a painting in a museum. The camera zooms in close to the painting</div>
+            <div class="video-title">18) Dynamic camera, slow motion, a sea creature appears from the frozen water as it emerges with water and mist.</div>
         </div>
         
         <div class="generation">
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360) scr</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="56972231/65_0_samplepanopost.mp4" data-vrsrc="56972231/65_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="85858/74_1_samplepanopost.mp4" data-vrsrc="85858/74_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + New Data)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="48073703/65_0_samplepanopost.mp4" data-vrsrc="48073703/65_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="74510564/74_1_samplepanopost.mp4" data-vrsrc="74510564/74_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + NewData)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="37607595/65_0_samplepanopost.mp4" data-vrsrc="37607595/65_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="12418577/74_1_samplepanopost.mp4" data-vrsrc="12418577/74_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
             </div>
             
-            <div class="video-title">19) FPV, internal locomotive cab of a train moving at hyper-speed in an old European city.</div>
+            <div class="video-title">19) A yellow bird sitting on a branch in a lush jungle with a thick rainforest in the background with mist.</div>
         </div>
         
         <div class="generation">
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360) scr</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="56972231/67_0_samplepanopost.mp4" data-vrsrc="56972231/67_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="85858/12_0_samplepanopost.mp4" data-vrsrc="85858/12_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + New Data)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="48073703/67_0_samplepanopost.mp4" data-vrsrc="48073703/67_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="74510564/12_0_samplepanopost.mp4" data-vrsrc="74510564/12_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + NewData)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="37607595/67_0_samplepanopost.mp4" data-vrsrc="37607595/67_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="12418577/12_0_samplepanopost.mp4" data-vrsrc="12418577/12_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
             </div>
             
-            <div class="video-title">20) An adorable corgi confidently stands on a surfboard wearing swimming goggles and a life vest as it cruises along the turquoise tropical waters near a lush tropical island. 3D digital render art style</div>
+            <div class="video-title">20) A view of a mountain biker riding down a dirt trail surrounded by trees.</div>
         </div>
         
         <div class="generation">
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360) scr</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="56972231/48_0_samplepanopost.mp4" data-vrsrc="56972231/48_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="85858/100_0_samplepanopost.mp4" data-vrsrc="85858/100_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + New Data)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="48073703/48_0_samplepanopost.mp4" data-vrsrc="48073703/48_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="74510564/100_0_samplepanopost.mp4" data-vrsrc="74510564/100_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + NewData)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="37607595/48_0_samplepanopost.mp4" data-vrsrc="37607595/48_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="12418577/100_0_samplepanopost.mp4" data-vrsrc="12418577/100_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
             </div>
             
-            <div class="video-title">21) FPV flying through a colorful coral lined streets of an underwater suburban neighborhood</div>
+            <div class="video-title">21) gunung bromo</div>
         </div>
         
         <div class="generation">
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360) scr</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="56972231/78_0_samplepanopost.mp4" data-vrsrc="56972231/78_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="85858/73_0_samplepanopost.mp4" data-vrsrc="85858/73_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + New Data)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="48073703/78_0_samplepanopost.mp4" data-vrsrc="48073703/78_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="74510564/73_0_samplepanopost.mp4" data-vrsrc="74510564/73_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + NewData)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="37607595/78_0_samplepanopost.mp4" data-vrsrc="37607595/78_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="12418577/73_0_samplepanopost.mp4" data-vrsrc="12418577/73_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
             </div>
             
-            <div class="video-title">22) A low angle hyper realistic shot of a thick purple goo flowing quickly down a white marble staircase. Cinematic, highly detailed, film grade.</div>
+            <div class="video-title">22) A cinematic close up shot of dark and frothy waves crashing on an overcast day.</div>
         </div>
         
         <div class="generation">
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360) scr</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="56972231/37_0_samplepanopost.mp4" data-vrsrc="56972231/37_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="85858/41_1_samplepanopost.mp4" data-vrsrc="85858/41_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + New Data)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="48073703/37_0_samplepanopost.mp4" data-vrsrc="48073703/37_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="74510564/41_1_samplepanopost.mp4" data-vrsrc="74510564/41_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + NewData)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="37607595/37_0_samplepanopost.mp4" data-vrsrc="37607595/37_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="12418577/41_1_samplepanopost.mp4" data-vrsrc="12418577/41_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
             </div>
             
-            <div class="video-title">23) A pink pig running fast toward the camera in an alley in Tokyo</div>
+            <div class="video-title">23) Aerial shot of the ocean. a maelstrom forms in the water swirling around until it reveals the fiery depths below</div>
         </div>
         
         <div class="generation">
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360) scr</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="56972231/35_1_samplepanopost.mp4" data-vrsrc="56972231/35_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="85858/42_0_samplepanopost.mp4" data-vrsrc="85858/42_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + New Data)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="48073703/35_1_samplepanopost.mp4" data-vrsrc="48073703/35_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="74510564/42_0_samplepanopost.mp4" data-vrsrc="74510564/42_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + NewData)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="37607595/35_1_samplepanopost.mp4" data-vrsrc="37607595/35_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="12418577/42_0_samplepanopost.mp4" data-vrsrc="12418577/42_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
             </div>
             
-            <div class="video-title">24) A first-person POV shot rapidly flies towards a house's front door at 10x speed</div>
+            <div class="video-title">24) Handheld tracking shot, following a red ballon floating above the ground in abandon street</div>
         </div>
         
         <div class="generation">
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360) scr</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="56972231/34_0_samplepanopost.mp4" data-vrsrc="56972231/34_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="85858/63_0_samplepanopost.mp4" data-vrsrc="85858/63_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + New Data)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="48073703/34_0_samplepanopost.mp4" data-vrsrc="48073703/34_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="74510564/63_0_samplepanopost.mp4" data-vrsrc="74510564/63_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + NewData)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="37607595/34_0_samplepanopost.mp4" data-vrsrc="37607595/34_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="12418577/63_0_samplepanopost.mp4" data-vrsrc="12418577/63_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
             </div>
             
-            <div class="video-title">25) A Japanese monkey in a hot spring</div>
+            <div class="video-title">25) A tsunami coming through an alley in Bulgaria, dynamic movement</div>
         </div>
         
         <div class="generation">
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360) scr</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="56972231/40_0_samplepanopost.mp4" data-vrsrc="56972231/40_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="85858/66_0_samplepanopost.mp4" data-vrsrc="85858/66_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + New Data)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="48073703/40_0_samplepanopost.mp4" data-vrsrc="48073703/40_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="74510564/66_0_samplepanopost.mp4" data-vrsrc="74510564/66_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + NewData)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="37607595/40_0_samplepanopost.mp4" data-vrsrc="37607595/40_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="12418577/66_0_samplepanopost.mp4" data-vrsrc="12418577/66_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
             </div>
             
-            <div class="video-title">26) Close up shot of a living flame wisp darting through a bustling fantasy market at night</div>
+            <div class="video-title">26) A medieval sailboat sailing on the sea, foggy nights, bright moonlight, eerie atmosphere</div>
         </div>
         
         <div class="generation">
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360) scr</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="56972231/46_0_samplepanopost.mp4" data-vrsrc="56972231/46_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="85858/62_0_samplepanopost.mp4" data-vrsrc="85858/62_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + New Data)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="48073703/46_0_samplepanopost.mp4" data-vrsrc="48073703/46_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="74510564/62_0_samplepanopost.mp4" data-vrsrc="74510564/62_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + NewData)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="37607595/46_0_samplepanopost.mp4" data-vrsrc="37607595/46_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="12418577/62_0_samplepanopost.mp4" data-vrsrc="12418577/62_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
             </div>
             
-            <div class="video-title">27) A FPV shot zooming through a tunnel into a vibrant underwater space</div>
+            <div class="video-title">27) A first-person POV shot rapidly flies through open doors to reveal a surreal waterfall cascading in the middle of the living room</div>
         </div>
         
         <div class="generation">
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360) scr</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="56972231/15_1_samplepanopost.mp4" data-vrsrc="56972231/15_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="85858/64_0_samplepanopost.mp4" data-vrsrc="85858/64_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + New Data)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="48073703/15_1_samplepanopost.mp4" data-vrsrc="48073703/15_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="74510564/64_0_samplepanopost.mp4" data-vrsrc="74510564/64_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + NewData)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="37607595/15_1_samplepanopost.mp4" data-vrsrc="37607595/15_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="12418577/64_0_samplepanopost.mp4" data-vrsrc="12418577/64_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
             </div>
             
-            <div class="video-title">28) A view of a glass with a red beverage and ice cubes, placed on a wooden table, with a potted plant in the background.</div>
+            <div class="video-title">28) A wide symmetrical shot of a painting in a museum. The camera zooms in close to the painting</div>
         </div>
         
         <div class="generation">
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360) scr</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="56972231/16_0_samplepanopost.mp4" data-vrsrc="56972231/16_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="85858/10_0_samplepanopost.mp4" data-vrsrc="85858/10_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + New Data)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="48073703/16_0_samplepanopost.mp4" data-vrsrc="48073703/16_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="74510564/10_0_samplepanopost.mp4" data-vrsrc="74510564/10_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + NewData)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="37607595/16_0_samplepanopost.mp4" data-vrsrc="37607595/16_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="12418577/10_0_samplepanopost.mp4" data-vrsrc="12418577/10_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
             </div>
             
-            <div class="video-title">29) A view of a quaint town nestled between rolling hills, with wooden houses, a winding river, and a clear blue sky overhead.</div>
+            <div class="video-title">29) A view of the ancient Colosseum in Rome, with a modern drone captured in mid-flight above its arena.</div>
         </div>
         
         <div class="generation">
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360) scr</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="56972231/9_1_samplepanopost.mp4" data-vrsrc="56972231/9_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="85858/59_0_samplepanopost.mp4" data-vrsrc="85858/59_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + New Data)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="48073703/9_1_samplepanopost.mp4" data-vrsrc="48073703/9_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="74510564/59_0_samplepanopost.mp4" data-vrsrc="74510564/59_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + NewData)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="37607595/9_1_samplepanopost.mp4" data-vrsrc="37607595/9_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="12418577/59_0_samplepanopost.mp4" data-vrsrc="12418577/59_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
             </div>
             
-            <div class="video-title">30) A view of a bustling street with colorful buildings, parked vehicles, and pedestrians. In the foreground, a robot with a white shirt and blue jeans stands facing the viewer.</div>
+            <div class="video-title">30) A FPV drone shot through a castle on a cliff</div>
         </div>
         
         <div class="generation">
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360) scr</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="56972231/10_0_samplepanopost.mp4" data-vrsrc="56972231/10_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="85858/65_0_samplepanopost.mp4" data-vrsrc="85858/65_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + New Data)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="48073703/10_0_samplepanopost.mp4" data-vrsrc="48073703/10_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="74510564/65_0_samplepanopost.mp4" data-vrsrc="74510564/65_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + NewData)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="37607595/10_0_samplepanopost.mp4" data-vrsrc="37607595/10_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="12418577/65_0_samplepanopost.mp4" data-vrsrc="12418577/65_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
             </div>
             
-            <div class="video-title">31) A view of the ancient Colosseum in Rome, with a modern drone captured in mid-flight above its arena.</div>
+            <div class="video-title">31) FPV, internal locomotive cab of a train moving at hyper-speed in an old European city.</div>
         </div>
         
         <div class="generation">
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360) scr</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="56972231/26_0_samplepanopost.mp4" data-vrsrc="56972231/26_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="85858/48_0_samplepanopost.mp4" data-vrsrc="85858/48_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + New Data)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="48073703/26_0_samplepanopost.mp4" data-vrsrc="48073703/26_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="74510564/48_0_samplepanopost.mp4" data-vrsrc="74510564/48_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + NewData)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="37607595/26_0_samplepanopost.mp4" data-vrsrc="37607595/26_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="12418577/48_0_samplepanopost.mp4" data-vrsrc="12418577/48_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
             </div>
             
-            <div class="video-title">32) A view of a Dalmatian dog leaning out of a blue window sill of a pink building, with a green door to its left.</div>
+            <div class="video-title">32) FPV flying through a colorful coral lined streets of an underwater suburban neighborhood</div>
         </div>
         
         <div class="generation">
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360) scr</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="56972231/20_1_samplepanopost.mp4" data-vrsrc="56972231/20_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="85858/37_0_samplepanopost.mp4" data-vrsrc="85858/37_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + New Data)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="48073703/20_1_samplepanopost.mp4" data-vrsrc="48073703/20_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="74510564/37_0_samplepanopost.mp4" data-vrsrc="74510564/37_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + NewData)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="37607595/20_1_samplepanopost.mp4" data-vrsrc="37607595/20_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="12418577/37_0_samplepanopost.mp4" data-vrsrc="12418577/37_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
             </div>
             
-            <div class="video-title">33) A view of a vast blue sky with a unique, fluffy white cloud in the center.</div>
+            <div class="video-title">33) A pink pig running fast toward the camera in an alley in Tokyo</div>
         </div>
         
         <div class="generation">
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360) scr</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="56972231/18_0_samplepanopost.mp4" data-vrsrc="56972231/18_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="85858/35_1_samplepanopost.mp4" data-vrsrc="85858/35_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + New Data)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="48073703/18_0_samplepanopost.mp4" data-vrsrc="48073703/18_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="74510564/35_1_samplepanopost.mp4" data-vrsrc="74510564/35_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
                     <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + NewData)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="37607595/18_0_samplepanopost.mp4" data-vrsrc="37607595/18_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="12418577/35_1_samplepanopost.mp4" data-vrsrc="12418577/35_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
             </div>
             
-            <div class="video-title">34) A view of a dog wearing a black beret and a red sweater.</div>
+            <div class="video-title">34) A first-person POV shot rapidly flies towards a house's front door at 10x speed</div>
+        </div>
+        
+        <div class="generation">
+            <div class="video-row">
+                
+                <div class="video-tile">
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="85858/34_0_samplepanopost.mp4" data-vrsrc="85858/34_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <br>
+                </div>
+        
+
+                <div class="video-tile">
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + New Data)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="74510564/34_0_samplepanopost.mp4" data-vrsrc="74510564/34_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <br>
+                </div>
+        
+
+                <div class="video-tile">
+                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + NewData)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="12418577/34_0_samplepanopost.mp4" data-vrsrc="12418577/34_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <br>
+                </div>
+        
+            </div>
+            
+            <div class="video-title">35) A Japanese monkey in a hot spring</div>
+        </div>
+        
+        <div class="generation">
+            <div class="video-row">
+                
+                <div class="video-tile">
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="85858/67_0_samplepanopost.mp4" data-vrsrc="85858/67_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <br>
+                </div>
+        
+
+                <div class="video-tile">
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + New Data)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="74510564/67_0_samplepanopost.mp4" data-vrsrc="74510564/67_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <br>
+                </div>
+        
+
+                <div class="video-tile">
+                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + NewData)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="12418577/67_0_samplepanopost.mp4" data-vrsrc="12418577/67_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <br>
+                </div>
+        
+            </div>
+            
+            <div class="video-title">36) An adorable corgi confidently stands on a surfboard wearing swimming goggles and a life vest as it cruises along the turquoise tropical waters near a lush tropical island. 3D digital render art style</div>
+        </div>
+        
+        <div class="generation">
+            <div class="video-row">
+                
+                <div class="video-tile">
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="85858/40_0_samplepanopost.mp4" data-vrsrc="85858/40_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <br>
+                </div>
+        
+
+                <div class="video-tile">
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + New Data)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="74510564/40_0_samplepanopost.mp4" data-vrsrc="74510564/40_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <br>
+                </div>
+        
+
+                <div class="video-tile">
+                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + NewData)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="12418577/40_0_samplepanopost.mp4" data-vrsrc="12418577/40_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <br>
+                </div>
+        
+            </div>
+            
+            <div class="video-title">37) Close up shot of a living flame wisp darting through a bustling fantasy market at night</div>
+        </div>
+        
+        <div class="generation">
+            <div class="video-row">
+                
+                <div class="video-tile">
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="85858/46_0_samplepanopost.mp4" data-vrsrc="85858/46_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <br>
+                </div>
+        
+
+                <div class="video-tile">
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + New Data)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="74510564/46_0_samplepanopost.mp4" data-vrsrc="74510564/46_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <br>
+                </div>
+        
+
+                <div class="video-tile">
+                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + NewData)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="12418577/46_0_samplepanopost.mp4" data-vrsrc="12418577/46_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <br>
+                </div>
+        
+            </div>
+            
+            <div class="video-title">38) A FPV shot zooming through a tunnel into a vibrant underwater space</div>
+        </div>
+        
+        <div class="generation">
+            <div class="video-row">
+                
+                <div class="video-tile">
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="85858/26_0_samplepanopost.mp4" data-vrsrc="85858/26_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <br>
+                </div>
+        
+
+                <div class="video-tile">
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + New Data)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="74510564/26_0_samplepanopost.mp4" data-vrsrc="74510564/26_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <br>
+                </div>
+        
+
+                <div class="video-tile">
+                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + NewData)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="12418577/26_0_samplepanopost.mp4" data-vrsrc="12418577/26_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <br>
+                </div>
+        
+            </div>
+            
+            <div class="video-title">39) A view of a Dalmatian dog leaning out of a blue window sill of a pink building, with a green door to its left.</div>
         </div>
         
         </div>
