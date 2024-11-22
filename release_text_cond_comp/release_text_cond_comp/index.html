@@ -85,7 +85,20 @@
         <h1>VideoPanda: OOD Text-conditional Comparison on VBench prompts (all_dimensions_longer)</h1>
 
         <div class="description">
-            <p>None</p>
+            <p>Here we show qualitative comparisons from our text-conditional OOD evaluations using the full VBench suite of prompts (1700+ prompts) with great diversity and coverage of different dimensions and categories.
+
+We found that the base model we used (VideoLDM) can result in poor generalization to OOD prompts, which primarily stems from the weakness of the base model itself.
+So we implemented the VideoPanda method on top of a more powerful model, CogVideoX-2B which is a medium-sized transformer DiT.
+In particular, on the <b style="color: blue;">left column</b> is the result from the model in our paper <b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b>, the <b style="color: blue;">middle column</b> is VideoPanda applied to the CogVideoX-2B model but trained with the exact same data <b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b> and the <b style="color: red;">right column</b> is the result from 360DVD using their standard implementation <b style="color: red;">360DVD (AnimateDiff + WEB360)</b>.<br><br>
+
+
+Most of the  <b style="color: red;">360DVD (right column)</b> have very distorted content in the sky and ground views (above or below +/-60 degree elevation). 
+These are very visible when viewing the sky or ground views using the <b>provided VR viewer</b>. <br>
+Viewing results this way also highlights the strange motions in 360DVD including the ground morphing in a spiral direction (0) “In a charming Parisian café, a panda”
+or inanimate objects sliding in different directions (17) “A serene scene unfolds with a delicate porcelain teacup” when comparing <b style="color: blue;">VideoPanda (left column)</b> vs  <b style="color: red;">360DVD (rightmost column)</b>.
+
+With no alterations to our framework, the new model <b style="color: blue;">VideoPanda (CogVideoX-2B) (middle column)</b> demonstrates large improvements in OOD generalization and video quality in both the text-conditional and video-conditional settings.
+</p>
         </div>
 
         <div id="pagination-top" class="pagination-container">
@@ -100,22 +113,22 @@
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="13488013/521_1_samplepanopost.mp4" data-vrsrc="13488013/521_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="11571883/521_1_samplepanopost.mp4" data-vrsrc="11571883/521_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="64827503/521_1_samplepanopost.mp4" data-vrsrc="64827503/521_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="82310084/521_1_samplepanopost.mp4" data-vrsrc="82310084/521_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: red;">360DVD</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="32713269/521_1_samplepano.mp4" data-vrsrc="32713269/521_1_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: red;">360DVD (AnimateDiff + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="98338321/521_1_samplepano.mp4" data-vrsrc="98338321/521_1_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
@@ -128,22 +141,22 @@
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="13488013/529_1_samplepanopost.mp4" data-vrsrc="13488013/529_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="11571883/529_1_samplepanopost.mp4" data-vrsrc="11571883/529_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="64827503/529_1_samplepanopost.mp4" data-vrsrc="64827503/529_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="82310084/529_1_samplepanopost.mp4" data-vrsrc="82310084/529_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: red;">360DVD</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="32713269/529_1_samplepano.mp4" data-vrsrc="32713269/529_1_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: red;">360DVD (AnimateDiff + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="98338321/529_1_samplepano.mp4" data-vrsrc="98338321/529_1_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
@@ -156,22 +169,22 @@
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="13488013/178_0_samplepanopost.mp4" data-vrsrc="13488013/178_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="11571883/178_0_samplepanopost.mp4" data-vrsrc="11571883/178_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="64827503/178_0_samplepanopost.mp4" data-vrsrc="64827503/178_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="82310084/178_0_samplepanopost.mp4" data-vrsrc="82310084/178_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: red;">360DVD</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="32713269/178_0_samplepano.mp4" data-vrsrc="32713269/178_0_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: red;">360DVD (AnimateDiff + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="98338321/178_0_samplepano.mp4" data-vrsrc="98338321/178_0_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
@@ -184,22 +197,22 @@
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="13488013/192_0_samplepanopost.mp4" data-vrsrc="13488013/192_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="11571883/192_0_samplepanopost.mp4" data-vrsrc="11571883/192_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="64827503/192_0_samplepanopost.mp4" data-vrsrc="64827503/192_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="82310084/192_0_samplepanopost.mp4" data-vrsrc="82310084/192_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: red;">360DVD</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="32713269/192_0_samplepano.mp4" data-vrsrc="32713269/192_0_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: red;">360DVD (AnimateDiff + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="98338321/192_0_samplepano.mp4" data-vrsrc="98338321/192_0_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
@@ -212,22 +225,22 @@
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="13488013/246_1_samplepanopost.mp4" data-vrsrc="13488013/246_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="11571883/246_1_samplepanopost.mp4" data-vrsrc="11571883/246_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="64827503/246_1_samplepanopost.mp4" data-vrsrc="64827503/246_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="82310084/246_1_samplepanopost.mp4" data-vrsrc="82310084/246_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: red;">360DVD</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="32713269/246_1_samplepano.mp4" data-vrsrc="32713269/246_1_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: red;">360DVD (AnimateDiff + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="98338321/246_1_samplepano.mp4" data-vrsrc="98338321/246_1_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
@@ -240,22 +253,22 @@
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="13488013/261_0_samplepanopost.mp4" data-vrsrc="13488013/261_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="11571883/261_0_samplepanopost.mp4" data-vrsrc="11571883/261_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="64827503/261_0_samplepanopost.mp4" data-vrsrc="64827503/261_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="82310084/261_0_samplepanopost.mp4" data-vrsrc="82310084/261_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: red;">360DVD</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="32713269/261_0_samplepano.mp4" data-vrsrc="32713269/261_0_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: red;">360DVD (AnimateDiff + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="98338321/261_0_samplepano.mp4" data-vrsrc="98338321/261_0_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
@@ -268,22 +281,22 @@
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="13488013/270_0_samplepanopost.mp4" data-vrsrc="13488013/270_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="11571883/270_0_samplepanopost.mp4" data-vrsrc="11571883/270_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="64827503/270_0_samplepanopost.mp4" data-vrsrc="64827503/270_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="82310084/270_0_samplepanopost.mp4" data-vrsrc="82310084/270_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: red;">360DVD</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="32713269/270_0_samplepano.mp4" data-vrsrc="32713269/270_0_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: red;">360DVD (AnimateDiff + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="98338321/270_0_samplepano.mp4" data-vrsrc="98338321/270_0_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
@@ -296,22 +309,22 @@
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="13488013/159_1_samplepanopost.mp4" data-vrsrc="13488013/159_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="11571883/159_1_samplepanopost.mp4" data-vrsrc="11571883/159_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="64827503/159_1_samplepanopost.mp4" data-vrsrc="64827503/159_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="82310084/159_1_samplepanopost.mp4" data-vrsrc="82310084/159_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: red;">360DVD</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="32713269/159_1_samplepano.mp4" data-vrsrc="32713269/159_1_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: red;">360DVD (AnimateDiff + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="98338321/159_1_samplepano.mp4" data-vrsrc="98338321/159_1_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
@@ -324,22 +337,22 @@
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="13488013/171_0_samplepanopost.mp4" data-vrsrc="13488013/171_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="11571883/171_0_samplepanopost.mp4" data-vrsrc="11571883/171_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="64827503/171_0_samplepanopost.mp4" data-vrsrc="64827503/171_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="82310084/171_0_samplepanopost.mp4" data-vrsrc="82310084/171_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: red;">360DVD</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="32713269/171_0_samplepano.mp4" data-vrsrc="32713269/171_0_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: red;">360DVD (AnimateDiff + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="98338321/171_0_samplepano.mp4" data-vrsrc="98338321/171_0_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
@@ -352,22 +365,22 @@
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="13488013/175_1_samplepanopost.mp4" data-vrsrc="13488013/175_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="11571883/175_1_samplepanopost.mp4" data-vrsrc="11571883/175_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="64827503/175_1_samplepanopost.mp4" data-vrsrc="64827503/175_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="82310084/175_1_samplepanopost.mp4" data-vrsrc="82310084/175_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: red;">360DVD</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="32713269/175_1_samplepano.mp4" data-vrsrc="32713269/175_1_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: red;">360DVD (AnimateDiff + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="98338321/175_1_samplepano.mp4" data-vrsrc="98338321/175_1_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
@@ -380,22 +393,22 @@
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="13488013/843_0_samplepanopost.mp4" data-vrsrc="13488013/843_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="11571883/843_0_samplepanopost.mp4" data-vrsrc="11571883/843_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="64827503/843_0_samplepanopost.mp4" data-vrsrc="64827503/843_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="82310084/843_0_samplepanopost.mp4" data-vrsrc="82310084/843_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: red;">360DVD</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="32713269/843_0_samplepano.mp4" data-vrsrc="32713269/843_0_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: red;">360DVD (AnimateDiff + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="98338321/843_0_samplepano.mp4" data-vrsrc="98338321/843_0_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
@@ -408,22 +421,22 @@
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="13488013/546_0_samplepanopost.mp4" data-vrsrc="13488013/546_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="11571883/546_0_samplepanopost.mp4" data-vrsrc="11571883/546_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="64827503/546_0_samplepanopost.mp4" data-vrsrc="64827503/546_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="82310084/546_0_samplepanopost.mp4" data-vrsrc="82310084/546_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: red;">360DVD</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="32713269/546_0_samplepano.mp4" data-vrsrc="32713269/546_0_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: red;">360DVD (AnimateDiff + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="98338321/546_0_samplepano.mp4" data-vrsrc="98338321/546_0_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
@@ -436,22 +449,22 @@
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="13488013/562_1_samplepanopost.mp4" data-vrsrc="13488013/562_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="11571883/562_1_samplepanopost.mp4" data-vrsrc="11571883/562_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="64827503/562_1_samplepanopost.mp4" data-vrsrc="64827503/562_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="82310084/562_1_samplepanopost.mp4" data-vrsrc="82310084/562_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: red;">360DVD</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="32713269/562_1_samplepano.mp4" data-vrsrc="32713269/562_1_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: red;">360DVD (AnimateDiff + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="98338321/562_1_samplepano.mp4" data-vrsrc="98338321/562_1_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
@@ -464,22 +477,22 @@
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="13488013/566_0_samplepanopost.mp4" data-vrsrc="13488013/566_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="11571883/566_0_samplepanopost.mp4" data-vrsrc="11571883/566_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="64827503/566_0_samplepanopost.mp4" data-vrsrc="64827503/566_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="82310084/566_0_samplepanopost.mp4" data-vrsrc="82310084/566_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: red;">360DVD</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="32713269/566_0_samplepano.mp4" data-vrsrc="32713269/566_0_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: red;">360DVD (AnimateDiff + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="98338321/566_0_samplepano.mp4" data-vrsrc="98338321/566_0_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
@@ -492,22 +505,22 @@
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="13488013/718_0_samplepanopost.mp4" data-vrsrc="13488013/718_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="11571883/718_0_samplepanopost.mp4" data-vrsrc="11571883/718_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="64827503/718_0_samplepanopost.mp4" data-vrsrc="64827503/718_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="82310084/718_0_samplepanopost.mp4" data-vrsrc="82310084/718_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: red;">360DVD</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="32713269/718_0_samplepano.mp4" data-vrsrc="32713269/718_0_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: red;">360DVD (AnimateDiff + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="98338321/718_0_samplepano.mp4" data-vrsrc="98338321/718_0_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
@@ -520,22 +533,22 @@
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="13488013/728_0_samplepanopost.mp4" data-vrsrc="13488013/728_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="11571883/728_0_samplepanopost.mp4" data-vrsrc="11571883/728_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="64827503/728_0_samplepanopost.mp4" data-vrsrc="64827503/728_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="82310084/728_0_samplepanopost.mp4" data-vrsrc="82310084/728_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: red;">360DVD</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="32713269/728_0_samplepano.mp4" data-vrsrc="32713269/728_0_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: red;">360DVD (AnimateDiff + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="98338321/728_0_samplepano.mp4" data-vrsrc="98338321/728_0_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
@@ -548,22 +561,22 @@
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="13488013/18_0_samplepanopost.mp4" data-vrsrc="13488013/18_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="11571883/18_0_samplepanopost.mp4" data-vrsrc="11571883/18_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="64827503/18_0_samplepanopost.mp4" data-vrsrc="64827503/18_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="82310084/18_0_samplepanopost.mp4" data-vrsrc="82310084/18_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: red;">360DVD</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="32713269/18_0_samplepano.mp4" data-vrsrc="32713269/18_0_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: red;">360DVD (AnimateDiff + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="98338321/18_0_samplepano.mp4" data-vrsrc="98338321/18_0_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
@@ -576,22 +589,22 @@
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="13488013/25_0_samplepanopost.mp4" data-vrsrc="13488013/25_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="11571883/25_0_samplepanopost.mp4" data-vrsrc="11571883/25_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="64827503/25_0_samplepanopost.mp4" data-vrsrc="64827503/25_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="82310084/25_0_samplepanopost.mp4" data-vrsrc="82310084/25_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: red;">360DVD</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="32713269/25_0_samplepano.mp4" data-vrsrc="32713269/25_0_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: red;">360DVD (AnimateDiff + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="98338321/25_0_samplepano.mp4" data-vrsrc="98338321/25_0_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
@@ -604,22 +617,22 @@
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="13488013/196_0_samplepanopost.mp4" data-vrsrc="13488013/196_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="11571883/196_0_samplepanopost.mp4" data-vrsrc="11571883/196_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="64827503/196_0_samplepanopost.mp4" data-vrsrc="64827503/196_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="82310084/196_0_samplepanopost.mp4" data-vrsrc="82310084/196_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: red;">360DVD</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="32713269/196_0_samplepano.mp4" data-vrsrc="32713269/196_0_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: red;">360DVD (AnimateDiff + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="98338321/196_0_samplepano.mp4" data-vrsrc="98338321/196_0_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
@@ -632,22 +645,22 @@
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="13488013/202_0_samplepanopost.mp4" data-vrsrc="13488013/202_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="11571883/202_0_samplepanopost.mp4" data-vrsrc="11571883/202_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="64827503/202_0_samplepanopost.mp4" data-vrsrc="64827503/202_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="82310084/202_0_samplepanopost.mp4" data-vrsrc="82310084/202_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: red;">360DVD</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="32713269/202_0_samplepano.mp4" data-vrsrc="32713269/202_0_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: red;">360DVD (AnimateDiff + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="98338321/202_0_samplepano.mp4" data-vrsrc="98338321/202_0_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
@@ -660,22 +673,22 @@
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="13488013/720_0_samplepanopost.mp4" data-vrsrc="13488013/720_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="11571883/720_0_samplepanopost.mp4" data-vrsrc="11571883/720_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="64827503/720_0_samplepanopost.mp4" data-vrsrc="64827503/720_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="82310084/720_0_samplepanopost.mp4" data-vrsrc="82310084/720_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: red;">360DVD</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="32713269/720_0_samplepano.mp4" data-vrsrc="32713269/720_0_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: red;">360DVD (AnimateDiff + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="98338321/720_0_samplepano.mp4" data-vrsrc="98338321/720_0_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
@@ -688,22 +701,22 @@
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="13488013/720_1_samplepanopost.mp4" data-vrsrc="13488013/720_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="11571883/720_1_samplepanopost.mp4" data-vrsrc="11571883/720_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="64827503/720_1_samplepanopost.mp4" data-vrsrc="64827503/720_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="82310084/720_1_samplepanopost.mp4" data-vrsrc="82310084/720_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: red;">360DVD</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="32713269/720_1_samplepano.mp4" data-vrsrc="32713269/720_1_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: red;">360DVD (AnimateDiff + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="98338321/720_1_samplepano.mp4" data-vrsrc="98338321/720_1_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
@@ -716,22 +729,22 @@
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="13488013/203_1_samplepanopost.mp4" data-vrsrc="13488013/203_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="11571883/203_1_samplepanopost.mp4" data-vrsrc="11571883/203_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="64827503/203_1_samplepanopost.mp4" data-vrsrc="64827503/203_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="82310084/203_1_samplepanopost.mp4" data-vrsrc="82310084/203_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: red;">360DVD</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="32713269/203_1_samplepano.mp4" data-vrsrc="32713269/203_1_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: red;">360DVD (AnimateDiff + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="98338321/203_1_samplepano.mp4" data-vrsrc="98338321/203_1_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
@@ -744,22 +757,22 @@
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="13488013/205_0_samplepanopost.mp4" data-vrsrc="13488013/205_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="11571883/205_0_samplepanopost.mp4" data-vrsrc="11571883/205_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="64827503/205_0_samplepanopost.mp4" data-vrsrc="64827503/205_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="82310084/205_0_samplepanopost.mp4" data-vrsrc="82310084/205_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: red;">360DVD</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="32713269/205_0_samplepano.mp4" data-vrsrc="32713269/205_0_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: red;">360DVD (AnimateDiff + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="98338321/205_0_samplepano.mp4" data-vrsrc="98338321/205_0_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
@@ -772,22 +785,22 @@
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="13488013/227_0_samplepanopost.mp4" data-vrsrc="13488013/227_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="11571883/227_0_samplepanopost.mp4" data-vrsrc="11571883/227_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="64827503/227_0_samplepanopost.mp4" data-vrsrc="64827503/227_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="82310084/227_0_samplepanopost.mp4" data-vrsrc="82310084/227_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: red;">360DVD</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="32713269/227_0_samplepano.mp4" data-vrsrc="32713269/227_0_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: red;">360DVD (AnimateDiff + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="98338321/227_0_samplepano.mp4" data-vrsrc="98338321/227_0_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
@@ -800,22 +813,22 @@
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="13488013/228_0_samplepanopost.mp4" data-vrsrc="13488013/228_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="11571883/228_0_samplepanopost.mp4" data-vrsrc="11571883/228_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="64827503/228_0_samplepanopost.mp4" data-vrsrc="64827503/228_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="82310084/228_0_samplepanopost.mp4" data-vrsrc="82310084/228_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: red;">360DVD</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="32713269/228_0_samplepano.mp4" data-vrsrc="32713269/228_0_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: red;">360DVD (AnimateDiff + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="98338321/228_0_samplepano.mp4" data-vrsrc="98338321/228_0_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
@@ -828,22 +841,22 @@
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="13488013/243_0_samplepanopost.mp4" data-vrsrc="13488013/243_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="11571883/243_0_samplepanopost.mp4" data-vrsrc="11571883/243_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="64827503/243_0_samplepanopost.mp4" data-vrsrc="64827503/243_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="82310084/243_0_samplepanopost.mp4" data-vrsrc="82310084/243_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: red;">360DVD</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="32713269/243_0_samplepano.mp4" data-vrsrc="32713269/243_0_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: red;">360DVD (AnimateDiff + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="98338321/243_0_samplepano.mp4" data-vrsrc="98338321/243_0_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
@@ -856,22 +869,22 @@
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="13488013/281_0_samplepanopost.mp4" data-vrsrc="13488013/281_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="11571883/281_0_samplepanopost.mp4" data-vrsrc="11571883/281_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="64827503/281_0_samplepanopost.mp4" data-vrsrc="64827503/281_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="82310084/281_0_samplepanopost.mp4" data-vrsrc="82310084/281_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: red;">360DVD</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="32713269/281_0_samplepano.mp4" data-vrsrc="32713269/281_0_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: red;">360DVD (AnimateDiff + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="98338321/281_0_samplepano.mp4" data-vrsrc="98338321/281_0_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
@@ -884,22 +897,22 @@
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="13488013/308_0_samplepanopost.mp4" data-vrsrc="13488013/308_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="11571883/308_0_samplepanopost.mp4" data-vrsrc="11571883/308_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="64827503/308_0_samplepanopost.mp4" data-vrsrc="64827503/308_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="82310084/308_0_samplepanopost.mp4" data-vrsrc="82310084/308_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: red;">360DVD</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="32713269/308_0_samplepano.mp4" data-vrsrc="32713269/308_0_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: red;">360DVD (AnimateDiff + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="98338321/308_0_samplepano.mp4" data-vrsrc="98338321/308_0_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
@@ -912,22 +925,22 @@
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="13488013/248_0_samplepanopost.mp4" data-vrsrc="13488013/248_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="11571883/248_0_samplepanopost.mp4" data-vrsrc="11571883/248_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="64827503/248_0_samplepanopost.mp4" data-vrsrc="64827503/248_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="82310084/248_0_samplepanopost.mp4" data-vrsrc="82310084/248_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: red;">360DVD</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="32713269/248_0_samplepano.mp4" data-vrsrc="32713269/248_0_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: red;">360DVD (AnimateDiff + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="98338321/248_0_samplepano.mp4" data-vrsrc="98338321/248_0_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
@@ -940,22 +953,22 @@
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="13488013/359_1_samplepanopost.mp4" data-vrsrc="13488013/359_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="11571883/359_1_samplepanopost.mp4" data-vrsrc="11571883/359_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="64827503/359_1_samplepanopost.mp4" data-vrsrc="64827503/359_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="82310084/359_1_samplepanopost.mp4" data-vrsrc="82310084/359_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: red;">360DVD</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="32713269/359_1_samplepano.mp4" data-vrsrc="32713269/359_1_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: red;">360DVD (AnimateDiff + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="98338321/359_1_samplepano.mp4" data-vrsrc="98338321/359_1_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
@@ -968,22 +981,22 @@
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="13488013/56_0_samplepanopost.mp4" data-vrsrc="13488013/56_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="11571883/56_0_samplepanopost.mp4" data-vrsrc="11571883/56_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="64827503/56_0_samplepanopost.mp4" data-vrsrc="64827503/56_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="82310084/56_0_samplepanopost.mp4" data-vrsrc="82310084/56_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: red;">360DVD</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="32713269/56_0_samplepano.mp4" data-vrsrc="32713269/56_0_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: red;">360DVD (AnimateDiff + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="98338321/56_0_samplepano.mp4" data-vrsrc="98338321/56_0_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
@@ -996,22 +1009,22 @@
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="13488013/76_0_samplepanopost.mp4" data-vrsrc="13488013/76_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="11571883/76_0_samplepanopost.mp4" data-vrsrc="11571883/76_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="64827503/76_0_samplepanopost.mp4" data-vrsrc="64827503/76_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="82310084/76_0_samplepanopost.mp4" data-vrsrc="82310084/76_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: red;">360DVD</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="32713269/76_0_samplepano.mp4" data-vrsrc="32713269/76_0_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: red;">360DVD (AnimateDiff + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="98338321/76_0_samplepano.mp4" data-vrsrc="98338321/76_0_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
@@ -1024,22 +1037,22 @@
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="13488013/82_0_samplepanopost.mp4" data-vrsrc="13488013/82_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="11571883/82_0_samplepanopost.mp4" data-vrsrc="11571883/82_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="64827503/82_0_samplepanopost.mp4" data-vrsrc="64827503/82_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="82310084/82_0_samplepanopost.mp4" data-vrsrc="82310084/82_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: red;">360DVD</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="32713269/82_0_samplepano.mp4" data-vrsrc="32713269/82_0_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: red;">360DVD (AnimateDiff + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="98338321/82_0_samplepano.mp4" data-vrsrc="98338321/82_0_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
@@ -1052,22 +1065,22 @@
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="13488013/88_0_samplepanopost.mp4" data-vrsrc="13488013/88_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="11571883/88_0_samplepanopost.mp4" data-vrsrc="11571883/88_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="64827503/88_0_samplepanopost.mp4" data-vrsrc="64827503/88_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="82310084/88_0_samplepanopost.mp4" data-vrsrc="82310084/88_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: red;">360DVD</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="32713269/88_0_samplepano.mp4" data-vrsrc="32713269/88_0_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: red;">360DVD (AnimateDiff + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="98338321/88_0_samplepano.mp4" data-vrsrc="98338321/88_0_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
@@ -1080,22 +1093,22 @@
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="13488013/4_0_samplepanopost.mp4" data-vrsrc="13488013/4_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="11571883/4_0_samplepanopost.mp4" data-vrsrc="11571883/4_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="64827503/4_0_samplepanopost.mp4" data-vrsrc="64827503/4_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="82310084/4_0_samplepanopost.mp4" data-vrsrc="82310084/4_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: red;">360DVD</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="32713269/4_0_samplepano.mp4" data-vrsrc="32713269/4_0_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: red;">360DVD (AnimateDiff + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="98338321/4_0_samplepano.mp4" data-vrsrc="98338321/4_0_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
@@ -1108,22 +1121,22 @@
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="13488013/6_1_samplepanopost.mp4" data-vrsrc="13488013/6_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="11571883/6_1_samplepanopost.mp4" data-vrsrc="11571883/6_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="64827503/6_1_samplepanopost.mp4" data-vrsrc="64827503/6_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="82310084/6_1_samplepanopost.mp4" data-vrsrc="82310084/6_1_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: red;">360DVD</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="32713269/6_1_samplepano.mp4" data-vrsrc="32713269/6_1_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: red;">360DVD (AnimateDiff + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="98338321/6_1_samplepano.mp4" data-vrsrc="98338321/6_1_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
@@ -1136,22 +1149,22 @@
             <div class="video-row">
                 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="13488013/479_0_samplepanopost.mp4" data-vrsrc="13488013/479_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (VideoLDM + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="11571883/479_0_samplepanopost.mp4" data-vrsrc="11571883/479_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B)</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="64827503/479_0_samplepanopost.mp4" data-vrsrc="64827503/479_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: blue;">VideoPanda (CogVideoX-2B + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="82310084/479_0_samplepanopost.mp4" data-vrsrc="82310084/479_0_samplepanopost.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
 
                 <div class="video-tile">
-                    <div class="video-title"><b style="color: red;">360DVD</b></div>
-                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="32713269/479_0_samplepano.mp4" data-vrsrc="32713269/479_0_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+                    <div class="video-title"><b style="color: red;">360DVD (AnimateDiff + WEB360)</b></div>
+                    <div class="video"><video controls playsinline autoplay loop muted><source data-src="98338321/479_0_samplepano.mp4" data-vrsrc="98338321/479_0_samplepano.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
                     <br>
                 </div>
         
